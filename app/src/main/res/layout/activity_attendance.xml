@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lm2"
+    android:orientation="vertical"
+    tools:context=".attendance">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Attendance"
+        android:textAlignment="center"
+        android:textSelectHandle="@color/colorPrimary"
+        android:textSelectHandleLeft="@color/colorPrimary"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/edDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="false"
+        android:inputType="date" />
+
+    <RadioGroup
+        android:id="@+id/prTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rdMorning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Morning" />
+
+        <RadioButton
+            android:id="@+id/rdEvening"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Evening" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:id="@+id/textView2"
+            android:layout_width="56dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Total Student :" />
+        <TextView
+            android:id="@+id/txtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="21dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Present :"
+            android:textColor="#4CAF50" />
+
+        <TextView
+            android:id="@+id/txtPresent"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="--"
+            android:textColor="#4CAF50" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="5dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Absent :"
+            android:textColor="#F44336" />
+
+        <TextView
+            android:id="@+id/txtAbsent"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="--"
+            android:textColor="#F44336" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <GridLayout
+            android:id="@+id/grd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </ScrollView>
+
+
+
+    <Button
+        android:id="@+id/bt2"
+        android:text="Submit"
+        android:background="@color/login_form_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "204499469385",
+    "firebase_url": "https://hams-134f2.firebaseio.com",
+    "project_id": "hams-134f2",
+    "storage_bucket": "hams-134f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204499469385:android:f560c65e97f967999c2b98",
+        "android_client_info": {
+          "package_name": "com.example.hams"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204499469385-v20eee4ik2vb1uqvf6f6j6seal55r611.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANEjej4o36oF8fJ_NY4SHdqQgPuotR5nM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204499469385-v20eee4ik2vb1uqvf6f6j6seal55r611.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
