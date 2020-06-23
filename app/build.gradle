@@ -34,6 +34,7 @@ dependencies {
     implementation 'com.muddzdev:styleabletoast:2.2.3'
     implementation 'com.github.d-max:spots-dialog:0.4@aar'
     implementation 'com.google.firebase:firebase-database:19.2.1'
+    implementation 'com.android.support:design:29.0.0'
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.1'
     testImplementation 'junit:junit:4.12'
