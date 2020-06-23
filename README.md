@@ -1,2 +1,4 @@
 # androidHAMS
-this app is created for hostel attendance management system to take prayer attendance online
+This android Appliaction is developed for Gujrat Vidyapith Hostel Prayer Attendance
+to upgrade the old system to mobile application 
+for fast,accurate,time saving purpose
