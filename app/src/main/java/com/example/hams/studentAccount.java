@@ -3,6 +3,7 @@ package com.example.hams;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +25,7 @@ public class studentAccount extends AppCompatActivity {
     String dbPassword;
     Intent intent;
     private String uname;
+    private ProgressDialog mProgress;
 
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private Map <String,String> LoginData=new HashMap<>();
@@ -32,10 +34,17 @@ public class studentAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_account);
 
-        btnSubmit=(Button)findViewById(R.id.btnChangePasswd);
-        edNewPassword=(EditText)findViewById(R.id.edNewPassword);
-        edOldPassword=(EditText)findViewById(R.id.edOldPassword);
-        edConfirmPassword=(EditText)findViewById(R.id.edConfPassword);
+        btnSubmit=(Button)findViewById(R.id.btnChangePasswd1);
+        edNewPassword=(EditText)findViewById(R.id.edNewPassword1);
+        edOldPassword=(EditText)findViewById(R.id.edOldPassword1);
+        edConfirmPassword=(EditText)findViewById(R.id.edConfPassword1);
+
+
+        mProgress = new ProgressDialog(studentAccount.this);
+        mProgress.setTitle("Processing...");
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         intent=getIntent();
 
@@ -61,20 +70,22 @@ public class studentAccount extends AppCompatActivity {
                     edConfirmPassword.setError("Password Do Not Match");
                 }
                 else if((!TextUtils.isEmpty(edConfirmPassword.getText() )&& (!TextUtils.isEmpty(edOldPassword.getText())&&(!TextUtils.isEmpty(edNewPassword.getText()))))) {
+                    mProgress.show();
                     LoginData.put("password", edConfirmPassword.getText().toString());
                     db.collection("student").document(uname).update("password", edConfirmPassword.getText().toString())
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    mProgress.dismiss();
                                     Toast.makeText(studentAccount.this, "Updated Successfully \n Please Login with New Password", Toast.LENGTH_LONG).show();
-                                intent=new Intent(getApplicationContext(),MainActivity.class);
+                                intent=new Intent(getApplicationContext(), Login.class);
                                 startActivity(intent);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-
+                                    mProgress.dismiss();
                                     Toast.makeText(studentAccount.this, "Error " + e.getMessage(), Toast.LENGTH_LONG).show();
 
                                 }

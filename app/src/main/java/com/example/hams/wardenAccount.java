@@ -2,7 +2,7 @@ package com.example.hams;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,11 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +25,7 @@ public class wardenAccount extends AppCompatActivity {
 
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
     private Map <String,String> LoginData=new HashMap<>();
-    private String UserName;
-    private String Password;
-    private long RollNo;
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +34,16 @@ public class wardenAccount extends AppCompatActivity {
 
         btnSubmit=(Button)findViewById(R.id.btnChangePasswd);
         edNewPassword=(EditText)findViewById(R.id.edNewPassword);
-        edOldPassword=(EditText)findViewById(R.id.edOldPassword);
+        edOldPassword=(EditText)findViewById(R.id.edOldPass2);
         edConfirmPassword=(EditText)findViewById(R.id.edConfPassword);
+
+        //initilize progress dialog for login
+        mProgress = new ProgressDialog(wardenAccount.this);
+        mProgress.setTitle("Processing...");
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
+
 
 
         intent=getIntent();
@@ -49,6 +53,7 @@ public class wardenAccount extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(TextUtils.isEmpty(edOldPassword.getText())){
                     edOldPassword.setError("Enter Password");
                 }
@@ -65,14 +70,17 @@ public class wardenAccount extends AppCompatActivity {
                     edConfirmPassword.setError("Password Do Not Match");
                 }
                 else if((!TextUtils.isEmpty(edConfirmPassword.getText() )&& (!TextUtils.isEmpty(edOldPassword.getText())&&(!TextUtils.isEmpty(edNewPassword.getText()))))) {
+                    mProgress.show();
                     LoginData.put("password", edConfirmPassword.getText().toString());
                     db.collection("warden").document(uname).update("password", edConfirmPassword.getText().toString())
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    mProgress.dismiss();
                                     Toast.makeText(wardenAccount.this, "Updated Successfully \n Please Login with New Password", Toast.LENGTH_LONG).show();
-                                    intent=new Intent(getApplicationContext(),MainActivity.class);
+                                    intent=new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -80,7 +88,7 @@ public class wardenAccount extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
 
                                     Toast.makeText(wardenAccount.this, "Error " + e.getMessage(), Toast.LENGTH_LONG).show();
-
+                                    mProgress.dismiss();
                                 }
                             });
                 }

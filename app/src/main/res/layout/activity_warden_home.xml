@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/warden_bg"
+    android:background="@drawable/st_bg"
     tools:context=".wardenHome">
     <LinearLayout
         android:orientation="vertical"
-        android:background="@raw/bv"
+        android:background="@drawable/st_bg"
         android:weightSum="12"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

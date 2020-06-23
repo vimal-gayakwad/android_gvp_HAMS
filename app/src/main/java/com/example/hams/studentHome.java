@@ -2,17 +2,13 @@ package com.example.hams;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class studentHome extends AppCompatActivity {
 private ImageView imgAtt,imgAccount,imgLogout;
@@ -67,7 +63,7 @@ String UserName,Password,docId;
                         editor.commit();
                         AppState.getSingleInstance().setLoggingOut(true);
                         Intent intent = new Intent(studentHome.this,
-                                MainActivity.class);
+                                Login.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
