@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
+        <activity android:name=".updateStudent" />
         <activity android:name=".studentAccount" />
         <activity android:name=".StudentReport" />
         <activity android:name=".StudentRegister" />
@@ -22,10 +24,12 @@
         <activity android:name=".attendance" />
         <activity android:name=".studentHome" />
         <activity android:name=".wardenHome" />
-        <activity android:name=".register"/>
-        <activity android:name=".Login">
+        <activity android:name=".register" />
+        <activity android:name=".Login"/>
+        <activity android:name=".MaintainStudent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

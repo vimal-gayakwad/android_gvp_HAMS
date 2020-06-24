@@ -19,7 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class wardenHome extends AppCompatActivity {
 
-    private ImageView imgAtt,imgRep,imgReg,imgList,imgAcc,imgLog;
+    private ImageView imgAtt,imgRep,imgMaintain,imgList,imgAcc,imgLog;
     private Intent intent;
     Long  lastRollNo=null;// to get last registered roll number
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -37,7 +37,7 @@ public class wardenHome extends AppCompatActivity {
         imgList=(ImageView)findViewById(R.id.imgList);
         imgLog=(ImageView)findViewById(R.id.imgLogout);
         imgAcc=(ImageView)findViewById(R.id.imgAccount);
-        imgReg=(ImageView)findViewById(R.id.imgReg);
+        imgMaintain=(ImageView)findViewById(R.id.imgReg);
 
 
         intent=getIntent();
@@ -70,10 +70,10 @@ public class wardenHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        imgReg.setOnClickListener(new View.OnClickListener() {
+        imgMaintain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(wardenHome.this,StudentRegister.class);
+                intent=new Intent(wardenHome.this,MaintainStudent.class);
                 startActivity(intent);
             }
         });
@@ -93,14 +93,6 @@ public class wardenHome extends AppCompatActivity {
                 intent=new Intent(wardenHome.this,wardenAccount.class);
                 intent.putExtra("iUserName1",UserName);
                 intent.putExtra("iPassword1",Password);
-                startActivity(intent);
-            }
-        });
-
-        imgReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent=new Intent(getApplicationContext(),StudentRegister.class);
                 startActivity(intent);
             }
         });
