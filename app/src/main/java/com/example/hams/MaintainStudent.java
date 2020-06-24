@@ -1,8 +1,6 @@
 package com.example.hams;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.widget.EditText;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 public class MaintainStudent extends AppCompatActivity {
    private Button reg,update,del;
    private  FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -23,7 +20,7 @@ public class MaintainStudent extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maintain_student);
+        setContentView(R.layout.activity_maintain);
     reg=(Button)findViewById(R.id.btnStuRegister);
     update=(Button)findViewById(R.id.btnStuUpdate);
     del=(Button)findViewById(R.id.btnstuDel);

@@ -128,7 +128,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:ems="10"
-                android:inputType="date"
+                android:editable="false"
+                android:inputType="datetime"
                 android:hint="Date Of Birth" />
         </com.google.android.material.textfield.TextInputLayout>
 

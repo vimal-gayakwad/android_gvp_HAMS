@@ -71,6 +71,7 @@ public class updateStudent extends AppCompatActivity {
         password = (EditText) findViewById(R.id.edSPasswordUP);
         RollNo = (EditText) findViewById(R.id.edRollNoUP1);
 
+
         mProgress = new ProgressDialog(updateStudent.this);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
@@ -78,199 +79,189 @@ public class updateStudent extends AppCompatActivity {
         mProgress.setIndeterminate(true);
         intent = getIntent();
         iRoll = Long.valueOf(intent.getStringExtra("rollNo"));
-
-        Toast.makeText(this, "Roll Number is"+iRoll, Toast.LENGTH_LONG).show();
+        RollNo.setEnabled(false);
         birthdate.setText("dd-mm-yyyy");
+        mProgress.show();
+        db.collection("StudentDetails")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                if (Long.valueOf(document.getString("RollNo"))==iRoll){ //&& document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
+                                    map.put("sname",document.getString("StudentName"));
+                                    map.put("Address",document.getString("Address"));
+                                    map.put("Contact",document.getString("Contact"));
+                                    map.put("Email",document.getString("Email"));
+                                    map.put("Birthdate",document.getString("Birthdate"));
+                                    map.put("Department",document.getString("Department"));
+                                    map.put("RollNo", ""+Long.parseLong(document.getString("RollNo")));
+                                    map.put("uid",document.getId());
+                                    mProgress.dismiss();
+                                    break;
+                                }
+
+                            }
+                        } else {
+
+                            mProgress.dismiss();
+                        }
+
+                        sName.setText(""+map.get("sname"));
+                        RollNo.setText(""+map.get("RollNo"));
+                        Address.setText(""+map.get("Address"));
+                        dept.setSelection(0);
+                        Contact.setText(map.get("Contact"));
+                        Email.setText(map.get("Email"));
+                        birthdate.setText(map.get("Birthdate"));
+                        uname.setText(map.get("uid"));
+
+                    }
+                });
+       birthdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int year=cal.get(Calendar.YEAR);
+                int month=cal.get(Calendar.MONTH);
+                int day=cal.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog=new DatePickerDialog(updateStudent.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDatesetListener,year,month,day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
+            }
+        });
+        mDatesetListener=new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+                cal.set(year, month, dayOfMonth);
+                String dateString = sdf.format(cal.getTime());
+                birthdate.setText(dateString);
+            }
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arraySpinner);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dept.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        db.collection("StudentLastRollNo").document("LastRollNo").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot documentSnapshot=task.getResult();
+                    LastRollNo=documentSnapshot.getLong("RollNo");
+                    RollNo.setText(""+LastRollNo);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        // todo UPLOAD DATA TO FIREBASE
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo CREATE STRING VARIABLE TO STORE EDITTEXT VALUE
+                if(TextUtils.isEmpty(RollNo.getText())){
+                    sName.setError("RollNo Required");
+                }
+                if(TextUtils.isEmpty(sName.getText())){
+                    sName.setError("StudentName Required");
+                }
+                if(TextUtils.isEmpty(Address.getText())){
+                    Address.setError("Address Required");
+                }
+                if(TextUtils.equals(birthdate.getText().toString(),"dd-mm-yyyy")){
+                    birthdate.setError("Select Birthdate");
+                }
+                if(TextUtils.isEmpty(Contact.getText())){
+                    Contact.setError("Contact Number Requiered");
+                }
+                if(TextUtils.isEmpty(Email.getText())){
+                    Email.setError("Email required");
+                }
+                if(TextUtils.isEmpty(uname.getText())){
+                    uname.setError("StudentName Required");
+                }
+                if(TextUtils.isEmpty(password.getText())){
+                    password.setError("Password Required");
+                }
+                if(dept.getSelectedItem().equals("-select Department-")){
+                    Toast.makeText(getApplicationContext(), "Select Department", Toast.LENGTH_SHORT).show();;
+                }
+                else {
+                    mProgress.show();
+                    String sname = sName.getText().toString(),
+                            rollNo=RollNo.getText().toString(),
+                            address = Address.getText().toString(),
+                            bdate = birthdate.getText().toString(),
+                            cont = Contact.getText().toString(),
+                            email = Email.getText().toString(),
+                            Uname = uname.getText().toString(),
+                            passwd = password.getText().toString();
+
+                    department=dept.getSelectedItem().toString();
+
+                    // Add studentDetails to studentDetails Collecction
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("StudentName", sname);
+                    user.put("Address", address);
+                    user.put("Birthdate", bdate);
+                    user.put("Department", department);
+                    user.put("Contact", cont);
+                    user.put("Email", email);
+                    user.put("RollNo",rollNo);
+                    //Add Stdunet UserName And Password to student Table
+                    final Map<String, Object> LoginData = new HashMap<>();
+                    LoginData.put("RollNo",rollNo);
+                    LoginData.put("username", Uname);
+                    LoginData.put("password", passwd);
+                    final Map<String, Object> AttData = new HashMap<>();
+                    AttData.put("RollNo",rollNo);
+                    AttData.put("username", Uname);
+
+
+///get last added rollnumber
+
+
+// Add a new document with a generated ID
+
+                    db.collection("StudentDetails").document(Uname)
+                            .update(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getApplicationContext(), "Added Successfully", Toast.LENGTH_LONG).show();
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    mProgress.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Error While Adding " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            });
+                    mProgress.dismiss();
+                    db.collection("student").document(uname.getText().toString()).update(LoginData);
+                    //Update Roll Number After SuccessFully Added
+                    sName.setText("");
+                    Address.setText("");
+                    birthdate.setText("dd-mm-yyyy");
+                    Contact.setText("");
+                    Email.setText("");
+                    uname.setText("");
+                    password.setText("");
+                    RollNo.setText("");
+                }
+            }
+        });
     }
 }
-//        mProgress.show();
-//        db.collection("StudentDetails")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//
-//                                if (Long.valueOf(document.getString("RollNo"))==1){ //&& document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
-//                                    map.put("sname",document.getString("StudentName"));
-//                                    map.put("Address",document.getString("Address"));
-//                                    map.put("Contact",document.getString("Contact"));
-//                                    map.put("Email",document.getString("Email"));
-//                                    map.put("Birthdate",document.getString("Birthdate"));
-//                                    map.put("Department",document.getString("Department"));
-//                                    map.put("RollNo", ""+Long.parseLong(document.getString("RollNo")));
-//                                    map.put("uid",document.getId());
-//                                    mProgress.dismiss();
-//                                    break;
-//                                }
-//
-//                            }
-//                        } else {
-//                            //Toast.makeText(updateStudent.this, "No Data Found", Toast.LENGTH_SHORT).show();
-//                            mProgress.dismiss();
-//                        }
-//                        Toast.makeText(updateStudent.this, ""+map.get("sname"), Toast.LENGTH_SHORT).show();
-//                        sName.setText(""+map.get("sname"));
-//                        RollNo.setText(""+map.get("RollNo"));
-//                        Address.setText(""+map.get("Address"));
-//                        dept.setSelection(0);
-//                        Contact.setText(map.get("Contact"));
-//                        Email.setText(map.get("Email"));
-//                        birthdate.setText(map.get("Birthdate"));
-//                        uname.setText(map.get("uid"));
-//
-//                    }
-//                });
-//       birthdate.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int year=cal.get(Calendar.YEAR);
-//                int month=cal.get(Calendar.MONTH);
-//                int day=cal.get(Calendar.DAY_OF_MONTH);
-//                DatePickerDialog datePickerDialog=new DatePickerDialog(getApplicationContext(),android.R.style.Theme_Holo_Dialog_MinWidth,mDatesetListener,year,month,day);
-//                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                datePickerDialog.show();
-//            }
-//        });
-//        mDatesetListener=new DatePickerDialog.OnDateSetListener() {
-//            @Override
-//            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//                SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-//                cal.set(year, month, dayOfMonth);
-//                String dateString = sdf.format(cal.getTime());
-//                birthdate.setText(dateString);
-//            }
-//        };
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_spinner_item, arraySpinner);
-//
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        dept.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
-//
-//        db.collection("StudentLastRollNo").document("LastRollNo").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot documentSnapshot=task.getResult();
-//                    LastRollNo=documentSnapshot.getLong("RollNo");
-//                    RollNo.setText(""+LastRollNo);
-//                }
-//                else{
-//                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//
-//
-//        // todo UPLOAD DATA TO FIREBASE
-//        submit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //todo CREATE STRING VARIABLE TO STORE EDITTEXT VALUE
-//                if(TextUtils.isEmpty(RollNo.getText())){
-//                    sName.setError("RollNo Required");
-//                }
-//                if(TextUtils.isEmpty(sName.getText())){
-//                    sName.setError("StudentName Required");
-//                }
-//                if(TextUtils.isEmpty(Address.getText())){
-//                    Address.setError("Address Required");
-//                }
-//                if(TextUtils.equals(birthdate.getText().toString(),"dd-mm-yyyy")){
-//                    birthdate.setError("Select Birthdate");
-//                }
-//                if(TextUtils.isEmpty(Contact.getText())){
-//                    Contact.setError("Contact Number Requiered");
-//                }
-//                if(TextUtils.isEmpty(Email.getText())){
-//                    Email.setError("Email required");
-//                }
-//                if(TextUtils.isEmpty(uname.getText())){
-//                    uname.setError("StudentName Required");
-//                }
-//                if(TextUtils.isEmpty(password.getText())){
-//                    password.setError("Password Required");
-//                }
-//                if(dept.getSelectedItem().equals("-select Department-")){
-//                    Toast.makeText(getApplicationContext(), "Select Department", Toast.LENGTH_SHORT).show();;
-//                }
-//                else {
-//                    String sname = sName.getText().toString(),
-//                            rollNo=RollNo.getText().toString(),
-//                            address = Address.getText().toString(),
-//                            bdate = birthdate.getText().toString(),
-//                            cont = Contact.getText().toString(),
-//                            email = Email.getText().toString(),
-//                            Uname = uname.getText().toString(),
-//                            passwd = password.getText().toString();
-//
-//                    department=dept.getSelectedItem().toString();
-//
-//                    // Add studentDetails to studentDetails Collecction
-//                    Map<String, Object> user = new HashMap<>();
-//                    user.put("StudentName", sname);
-//                    user.put("Address", address);
-//                    user.put("Birthdate", bdate);
-//                    user.put("Department", department);
-//                    user.put("Contact", cont);
-//                    user.put("Email", email);
-//                    user.put("RollNo",rollNo);
-//                    //Add Stdunet UserName And Password to student Table
-//                    final Map<String, Object> LoginData = new HashMap<>();
-//                    LoginData.put("RollNo",rollNo);
-//                    LoginData.put("username", Uname);
-//                    LoginData.put("password", passwd);
-//                    final Map<String, Object> AttData = new HashMap<>();
-//                    AttData.put("RollNo",rollNo);
-//                    AttData.put("username", Uname);
-//
-//
-/////get last added rollnumber
-//
-//
-//// Add a new document with a generated ID
-//
-//                    db.collection("StudentDetails").document(Uname)
-//                            .update(user)
-//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                @Override
-//                                public void onSuccess(Void aVoid) {
-//                                    final Map<String,Long> LRollNo = new HashMap<>();
-//                                    LRollNo.put("RollNo", LastRollNo + 1);
-//                                    db.collection("StudentLastRollNo").document("LastRollNo").set(LRollNo);
-//                                    Toast.makeText(getApplicationContext(), "Added Successfully", Toast.LENGTH_LONG).show();
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//
-//                                    Toast.makeText(getApplicationContext(), "Error While Adding " + e.getMessage(), Toast.LENGTH_LONG).show();
-//
-//                                }
-//                            });
-//
-//                    db.collection("student").document(uname.getText().toString()).update(LoginData);
-//                    db.collection("attendanceList").document(rollNo).update(AttData);
-//
-//                    //Update Roll Number After SuccessFully Added
-//
-//
-//                    sName.setText("");
-//                    Address.setText("");
-//                    birthdate.setText("dd-mm-yyyy");
-//                    Contact.setText("");
-//                    Email.setText("");
-//                    uname.setText("");
-//                    password.setText("");
-//                    RollNo.setText("");
-//
-//                }
-//            }
-//        });
-//    }
-//}
