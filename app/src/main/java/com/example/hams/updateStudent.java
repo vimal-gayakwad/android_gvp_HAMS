@@ -90,15 +90,15 @@ public class updateStudent extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 
-                                if (Long.valueOf(document.getString("RollNo"))==iRoll){ //&& document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
-                                    map.put("sname",document.getString("StudentName"));
-                                    map.put("Address",document.getString("Address"));
-                                    map.put("Contact",document.getString("Contact"));
-                                    map.put("Email",document.getString("Email"));
-                                    map.put("Birthdate",document.getString("Birthdate"));
-                                    map.put("Department",document.getString("Department"));
-                                    map.put("RollNo", ""+Long.parseLong(document.getString("RollNo")));
-                                    map.put("uid",document.getId());
+                                if (Long.valueOf(document.getString("RollNo")).equals(iRoll)) { //&& document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
+                                    map.put("sname", document.getString("StudentName"));
+                                    map.put("Address", document.getString("Address"));
+                                    map.put("Contact", document.getString("Contact"));
+                                    map.put("Email", document.getString("Email"));
+                                    map.put("Birthdate", document.getString("Birthdate"));
+                                    map.put("Department", document.getString("Department"));
+                                    map.put("RollNo", "" + Long.parseLong(document.getString("RollNo")));
+                                    map.put("uid", document.getId());
                                     mProgress.dismiss();
                                     break;
                                 }
@@ -109,9 +109,9 @@ public class updateStudent extends AppCompatActivity {
                             mProgress.dismiss();
                         }
 
-                        sName.setText(""+map.get("sname"));
-                        RollNo.setText(""+map.get("RollNo"));
-                        Address.setText(""+map.get("Address"));
+                        sName.setText( map.get("sname"));
+                        RollNo.setText( map.get("RollNo"));
+                        Address.setText(  map.get("Address"));
                         dept.setSelection(0);
                         Contact.setText(map.get("Contact"));
                         Email.setText(map.get("Email"));
@@ -120,18 +120,18 @@ public class updateStudent extends AppCompatActivity {
 
                     }
                 });
-       birthdate.setOnClickListener(new View.OnClickListener() {
+        birthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int year=cal.get(Calendar.YEAR);
-                int month=cal.get(Calendar.MONTH);
-                int day=cal.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog=new DatePickerDialog(updateStudent.this,android.R.style.Theme_Holo_Dialog_MinWidth,mDatesetListener,year,month,day);
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(updateStudent.this, android.R.style.Theme_Holo_Dialog_MinWidth, mDatesetListener, year, month, day);
                 datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
         });
-        mDatesetListener=new DatePickerDialog.OnDateSetListener() {
+        mDatesetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
@@ -152,16 +152,14 @@ public class updateStudent extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
-                    DocumentSnapshot documentSnapshot=task.getResult();
-                    LastRollNo=documentSnapshot.getLong("RollNo");
-                    RollNo.setText(""+LastRollNo);
-                }
-                else{
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    LastRollNo = documentSnapshot.getLong("RollNo");
+                    RollNo.setText("" + LastRollNo);
+                } else {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
 
         // todo UPLOAD DATA TO FIREBASE
@@ -169,37 +167,37 @@ public class updateStudent extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //todo CREATE STRING VARIABLE TO STORE EDITTEXT VALUE
-                if(TextUtils.isEmpty(RollNo.getText())){
+                if (TextUtils.isEmpty(RollNo.getText())) {
                     sName.setError("RollNo Required");
                 }
-                if(TextUtils.isEmpty(sName.getText())){
+                if (TextUtils.isEmpty(sName.getText())) {
                     sName.setError("StudentName Required");
                 }
-                if(TextUtils.isEmpty(Address.getText())){
+                if (TextUtils.isEmpty(Address.getText())) {
                     Address.setError("Address Required");
                 }
-                if(TextUtils.equals(birthdate.getText().toString(),"dd-mm-yyyy")){
+                if (TextUtils.equals(birthdate.getText().toString(), "dd-mm-yyyy")) {
                     birthdate.setError("Select Birthdate");
                 }
-                if(TextUtils.isEmpty(Contact.getText())){
+                if (TextUtils.isEmpty(Contact.getText())) {
                     Contact.setError("Contact Number Requiered");
                 }
-                if(TextUtils.isEmpty(Email.getText())){
+                if (TextUtils.isEmpty(Email.getText())) {
                     Email.setError("Email required");
                 }
-                if(TextUtils.isEmpty(uname.getText())){
+                if (TextUtils.isEmpty(uname.getText())) {
                     uname.setError("StudentName Required");
                 }
-                if(TextUtils.isEmpty(password.getText())){
+                if (TextUtils.isEmpty(password.getText())) {
                     password.setError("Password Required");
                 }
-                if(dept.getSelectedItem().equals("-select Department-")){
-                    Toast.makeText(getApplicationContext(), "Select Department", Toast.LENGTH_SHORT).show();;
-                }
-                else {
+                if (dept.getSelectedItem().equals("-select Department-")) {
+                    Toast.makeText(getApplicationContext(), "Select Department", Toast.LENGTH_SHORT).show();
+                    ;
+                } else {
                     mProgress.show();
                     String sname = sName.getText().toString(),
-                            rollNo=RollNo.getText().toString(),
+                            rollNo = RollNo.getText().toString(),
                             address = Address.getText().toString(),
                             bdate = birthdate.getText().toString(),
                             cont = Contact.getText().toString(),
@@ -207,7 +205,7 @@ public class updateStudent extends AppCompatActivity {
                             Uname = uname.getText().toString(),
                             passwd = password.getText().toString();
 
-                    department=dept.getSelectedItem().toString();
+                    department = dept.getSelectedItem().toString();
 
                     // Add studentDetails to studentDetails Collecction
                     Map<String, Object> user = new HashMap<>();
@@ -217,14 +215,14 @@ public class updateStudent extends AppCompatActivity {
                     user.put("Department", department);
                     user.put("Contact", cont);
                     user.put("Email", email);
-                    user.put("RollNo",rollNo);
+                    user.put("RollNo", rollNo);
                     //Add Stdunet UserName And Password to student Table
                     final Map<String, Object> LoginData = new HashMap<>();
-                    LoginData.put("RollNo",rollNo);
+                    LoginData.put("RollNo", rollNo);
                     LoginData.put("username", Uname);
                     LoginData.put("password", passwd);
                     final Map<String, Object> AttData = new HashMap<>();
-                    AttData.put("RollNo",rollNo);
+                    AttData.put("RollNo", rollNo);
                     AttData.put("username", Uname);
 
 

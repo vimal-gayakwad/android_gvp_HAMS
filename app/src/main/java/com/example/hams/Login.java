@@ -73,6 +73,7 @@ public class Login extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 userType = position;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Toast.makeText(Login.this, "Please Select User Type !", Toast.LENGTH_SHORT).show();
@@ -80,7 +81,7 @@ public class Login extends AppCompatActivity {
                 return;
             }
         });
-      //////////////////btnLogin/////////////
+        //////////////////btnLogin/////////////
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +101,8 @@ public class Login extends AppCompatActivity {
                     if (userType == 1) {
                         utype = "warden";
                         intent = new Intent(Login.this, wardenHome.class);
-                    } if(userType == 2) {
+                    }
+                    if (userType == 2) {
                         utype = "student";
                         intent = new Intent(Login.this, studentHome.class);
                     }
@@ -114,7 +116,7 @@ public class Login extends AppCompatActivity {
                     }
 
                     ////get Value from database and Check The Value///////////////////////
-                    else if(userType!=0) {
+                    else if (userType != 0) {
                         db.collection(utype).document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -125,18 +127,18 @@ public class Login extends AppCompatActivity {
                                     String Fpassword = documentSnapshot.getString("password");//Firebase Password
                                     if (username.equals(Fusername) && password.equals(Fpassword)) {
                                         mProgress.dismiss();
-                                                String un=username,
-                                                        ps=password,
-                                                        ut=utype;
+                                        String un = username,
+                                                ps = password,
+                                                ut = utype;
 
-                                        if(userType==2){
-                                            Long rl= Long.parseLong((String) documentSnapshot.get("RollNo"));
-                                            intent.putExtra("iRollNo",rl);
+                                        if (userType == 2) {
+                                            Long rl = Long.parseLong((String) documentSnapshot.get("RollNo"));
+                                            intent.putExtra("iRollNo", rl);
                                         }
-                                        intent.putExtra("docId",documentSnapshot.getId());
-                                        intent.putExtra("iUserName",un);//edUsername.getText().toString());
-                                        intent.putExtra("iPassword",ps);//,edPassword.getText().toString());
-                                        intent.putExtra("iUtype",ut);
+                                        intent.putExtra("docId", documentSnapshot.getId());
+                                        intent.putExtra("iUserName", un);//edUsername.getText().toString());
+                                        intent.putExtra("iPassword", ps);//,edPassword.getText().toString());
+                                        intent.putExtra("iUtype", ut);
                                         startActivity(intent);
                                     } else {
                                         Toast.makeText(Login.this, "Incorrect Username Or Password !", Toast.LENGTH_SHORT).show();
@@ -148,8 +150,7 @@ public class Login extends AppCompatActivity {
                                 }
                             }
                         });
-                    }
-                    else{
+                    } else {
                         Toast.makeText(Login.this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
                     }
                 } else {

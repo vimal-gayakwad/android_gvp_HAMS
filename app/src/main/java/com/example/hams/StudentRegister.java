@@ -180,7 +180,7 @@ public class StudentRegister extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    final Map<String,Long> LRollNo = new HashMap<>();
+                                    final Map<String, Long> LRollNo = new HashMap<>();
                                     LRollNo.put("RollNo", LastRollNo + 1);
                                     db.collection("StudentLastRollNo").document("LastRollNo").set(LRollNo);
                                     Toast.makeText(StudentRegister.this, "Added Successfully", Toast.LENGTH_LONG).show();

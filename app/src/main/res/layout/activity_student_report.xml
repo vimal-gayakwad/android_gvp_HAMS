@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearStudent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".StudentReport">
 
     <TextView
@@ -26,6 +26,7 @@
         android:id="@+id/webViewReport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <WebView
         android:id="@+id/webviewAbs"
         android:layout_width="match_parent"
@@ -35,6 +36,6 @@
         android:id="@+id/btnPrint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:text="Print" />
+        android:text="Print"
+        android:visibility="invisible" />
 </LinearLayout>

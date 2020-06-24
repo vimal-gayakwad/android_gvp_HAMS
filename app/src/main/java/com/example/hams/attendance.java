@@ -37,12 +37,13 @@ import java.util.Locale;
 import java.util.Map;
 
 import static java.lang.String.valueOf;
+
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class attendance extends AppCompatActivity {
 
-    private  CheckBox checkBox;
-    private int numOfStu=0;
-    private TextView txtPre,txtAbs,txtTot;
+    private CheckBox checkBox;
+    private int numOfStu = 0;
+    private TextView txtPre, txtAbs, txtTot;
     private EditText edDate;
     Button submit;
     String p;
@@ -51,13 +52,13 @@ public class attendance extends AppCompatActivity {
     GridLayout grd;
     ////////////////////////
     ArrayList<String> keyList;
-    HashMap<String, String> meMap=new HashMap<String, String>();
+    HashMap<String, String> meMap = new HashMap<String, String>();
     Map<String, Object> user = new HashMap<>();
     ///////////////////////////////////////////////
-    FirebaseFirestore db=FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressDialog mProgress;
     private RadioGroup radioGroup;
-    private RadioButton rdMorning,rdEvening;
+    private RadioButton rdMorning, rdEvening;
     final Calendar myCalendar = Calendar.getInstance();
     /////////////////////////////////////////////////
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -72,38 +73,39 @@ public class attendance extends AppCompatActivity {
             updateLabel();
         }
     };
+
     ///////////////////////////////////////
     private void updateLabel() {
         String myFormat = "dd-MMM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         edDate.setText(sdf.format(myCalendar.getTime()));
     }
+
     ///////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
-        txtPre=(TextView)findViewById(R.id.txtPresent);
-        txtAbs=(TextView)findViewById(R.id.txtAbsent);
-        txtTot=(TextView)findViewById(R.id.txtTotal);
-        submit =(Button)findViewById(R.id.bt2);
-        edDate=(EditText) findViewById(R.id.edDate);
-        radioGroup=(RadioGroup)findViewById(R.id.prTime);
-        rdEvening=(RadioButton)findViewById(R.id.rdEvening);
-        rdMorning=(RadioButton)findViewById(R.id.rdMorning);
+        txtPre = (TextView) findViewById(R.id.txtPresent);
+        txtAbs = (TextView) findViewById(R.id.txtAbsent);
+        txtTot = (TextView) findViewById(R.id.txtTotal);
+        submit = (Button) findViewById(R.id.bt2);
+        edDate = (EditText) findViewById(R.id.edDate);
+        radioGroup = (RadioGroup) findViewById(R.id.prTime);
+        rdEvening = (RadioButton) findViewById(R.id.rdEvening);
+        rdMorning = (RadioButton) findViewById(R.id.rdMorning);
 
-        grd=(GridLayout)findViewById(R.id.grd);
+        grd = (GridLayout) findViewById(R.id.grd);
         grd.setColumnCount(getColumn());
 
         //////////////////////////////////////////////////////////
         Date c = Calendar.getInstance().getTime();
-        crTime=Calendar.HOUR_OF_DAY;
+        crTime = Calendar.HOUR_OF_DAY;
 
-        if (crTime <= 12){
+        if (crTime <= 12) {
             rdMorning.setChecked(true);
-        }
-        else{
+        } else {
             rdEvening.setChecked(true);
         }
 
@@ -138,23 +140,23 @@ public class attendance extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                String name= (String) document.get("Name");
-                                long id=  Long.valueOf( document.getString("RollNo"));
-                                user.put(""+id,"a");
+                                String name = (String) document.get("Name");
+                                long id = Long.valueOf(document.getString("RollNo"));
+                                user.put("" + id, "a");
                                 checkBox = new CheckBox(attendance.this);
-                                checkBox.setId(Integer.parseInt(""+id));
-                                checkBox.setText((""+id));
+                                checkBox.setId(Integer.parseInt("" + id));
+                                checkBox.setText(("" + id));
                                 checkBox.setTextSize(20);
                                 checkBox.setOnClickListener(getOnClickDoSomething(checkBox));
-                                checkBox.setPadding(20,20,20,20);
-                                checkBox.setShadowLayer(1,1,1,1);
+                                checkBox.setPadding(20, 20, 20, 20);
+                                checkBox.setShadowLayer(1, 1, 1, 1);
                                 grd.addView(checkBox);
                                 numOfStu++;
                                 mProgress.dismiss();
                             }
                         } else {
                             mProgress.dismiss();
-                            Toast.makeText(attendance.this, ""+task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(attendance.this, "" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
 
                         txtTot.setText(valueOf(numOfStu));
@@ -166,16 +168,15 @@ public class attendance extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mProgress.show();
-                if(rdMorning.isChecked()){
-                    attTime="morning";
+                if (rdMorning.isChecked()) {
+                    attTime = "morning";
+                } else {
+                    attTime = "evening";
                 }
-                else{
-                    attTime="evening";
-                }
-                keyList=new ArrayList<>(meMap.keySet());
-                ArrayList<String> valueList=new ArrayList<>(meMap.values());
-                for (int i=0;i<keyList.size();i++){
-                    user.put(keyList.get(i),"p");
+                keyList = new ArrayList<>(meMap.keySet());
+                ArrayList<String> valueList = new ArrayList<>(meMap.values());
+                for (int i = 0; i < keyList.size(); i++) {
+                    user.put(keyList.get(i), "p");
                 }
                 saveInfo();
             }
@@ -183,19 +184,17 @@ public class attendance extends AppCompatActivity {
     }
 
     private int getColumn() {
-        int num=0;
-        int height,width;
+        int num = 0;
+        int height, width;
 
-        width=Resources.getSystem().getDisplayMetrics().widthPixels;
+        width = Resources.getSystem().getDisplayMetrics().widthPixels;
 
-        if(width>=1280){
-            num=(int)Math.round(width/240);
-        }
-        else if(width>=340 && width<=780) {
-            num= (int) Math.round(width/120);
-        }
-        else if(width>780 && width<1280){
-            num= (int) Math.round(width/180);
+        if (width >= 1280) {
+            num = (int) Math.round(width / 240);
+        } else if (width >= 340 && width <= 780) {
+            num = (int) Math.round(width / 120);
+        } else if (width > 780 && width < 1280) {
+            num = (int) Math.round(width / 180);
         }
 
         return num;
@@ -203,7 +202,7 @@ public class attendance extends AppCompatActivity {
     }
 
     private void saveInfo() {
-        db.collection("attendance").document(edDate.getText().toString()+" "+attTime)
+        db.collection("attendance").document(edDate.getText().toString() + " " + attTime)
                 .set(user)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -216,35 +215,37 @@ public class attendance extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         mProgress.dismiss();
-                        Toast.makeText(attendance.this, "Error While Adding "+e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(attendance.this, "Error While Adding " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
+
     ////////////////////////////////////////////////////////////////
-    int i=0;
+    int i = 0;
+
     View.OnClickListener getOnClickDoSomething(final CheckBox cbox) {
         return new View.OnClickListener() {
             public void onClick(View v) {
                 if (cbox.isChecked()) {
-                    meMap.put(""+cbox.getId(),cbox.getText().toString());
+                    meMap.put("" + cbox.getId(), cbox.getText().toString());
                     operation();
-                }
-                else{
-                    meMap.remove(""+cbox.getId());
+                } else {
+                    meMap.remove("" + cbox.getId());
                     operation();
                 }
             }
         };
     }
+
     /////////perform operation on checkboxStateChangedListner
     private void operation() {
-        int abs,prs;
+        int abs, prs;
         int ab;
-        abs=numOfStu;
-        prs=meMap.size();
-        ab=(abs-prs);
+        abs = numOfStu;
+        prs = meMap.size();
+        ab = (abs - prs);
         txtAbs.setText(valueOf(ab));
-        p=(valueOf(meMap.size()));
+        p = (valueOf(meMap.size()));
         txtPre.setText(p);
     }
 }

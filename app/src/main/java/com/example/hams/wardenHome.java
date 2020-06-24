@@ -19,9 +19,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class wardenHome extends AppCompatActivity {
 
-    private ImageView imgAtt,imgRep,imgMaintain,imgList,imgAcc,imgLog;
+    private ImageView imgAtt, imgRep, imgMaintain, imgList, imgAcc, imgLog;
     private Intent intent;
-    Long  lastRollNo=null;// to get last registered roll number
+    Long lastRollNo = null;// to get last registered roll number
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String UserName;
     private long RollNo;
@@ -32,32 +32,35 @@ public class wardenHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warden_home);
 
-        imgAtt=(ImageView)findViewById(R.id.imgAttend);
-        imgRep=(ImageView)findViewById(R.id.imgReport);
-        imgList=(ImageView)findViewById(R.id.imgList);
-        imgLog=(ImageView)findViewById(R.id.imgLogout);
-        imgAcc=(ImageView)findViewById(R.id.imgAccount);
-        imgMaintain=(ImageView)findViewById(R.id.imgReg);
+        imgAtt = (ImageView) findViewById(R.id.imgAttend);
+        imgRep = (ImageView) findViewById(R.id.imgReport);
+        imgList = (ImageView) findViewById(R.id.imgList);
+        imgLog = (ImageView) findViewById(R.id.imgLogout);
+        imgAcc = (ImageView) findViewById(R.id.imgAccount);
+        imgMaintain = (ImageView) findViewById(R.id.imgReg);
 
 
-        intent=getIntent();
-        UserName=intent.getStringExtra("iUserName");
-        RollNo=intent.getLongExtra("iRollNo",0);
-        Password=intent.getStringExtra("iPassword");
+        intent = getIntent();
+        UserName = intent.getStringExtra("iUserName");
+        RollNo = intent.getLongExtra("iRollNo", 0);
+        Password = intent.getStringExtra("iPassword");
 
         db.collection("StudentLastRollNo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        lastRollNo= document.getLong("lastRollNo");
-                    }}}});
+                        lastRollNo = document.getLong("lastRollNo");
+                    }
+                }
+            }
+        });
         //redirect to attendance page
 
         imgAtt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(wardenHome.this,attendance.class);
+                intent = new Intent(wardenHome.this, attendance.class);
                 startActivity(intent);
             }
         });
@@ -66,14 +69,14 @@ public class wardenHome extends AppCompatActivity {
         imgRep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(wardenHome.this,wardenReport.class);
+                intent = new Intent(wardenHome.this, wardenReport.class);
                 startActivity(intent);
             }
         });
         imgMaintain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(wardenHome.this,MaintainStudent.class);
+                intent = new Intent(wardenHome.this, MaintainStudent.class);
                 startActivity(intent);
             }
         });
@@ -81,7 +84,7 @@ public class wardenHome extends AppCompatActivity {
         imgList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(wardenHome.this,wardenSList.class);
+                intent = new Intent(wardenHome.this, wardenSList.class);
                 startActivity(intent);
             }
         });
@@ -90,9 +93,9 @@ public class wardenHome extends AppCompatActivity {
         imgAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent=new Intent(wardenHome.this,wardenAccount.class);
-                intent.putExtra("iUserName1",UserName);
-                intent.putExtra("iPassword1",Password);
+                intent = new Intent(wardenHome.this, wardenAccount.class);
+                intent.putExtra("iUserName1", UserName);
+                intent.putExtra("iPassword1", Password);
                 startActivity(intent);
             }
         });
@@ -125,11 +128,13 @@ public class wardenHome extends AppCompatActivity {
             }
         });
     }
+
     //if user press back button after login it will not allowed to go back
     //it will ask for exit directly
     @Override
     public void onBackPressed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);        builder.setTitle("Are You Sure Want to Exit ?");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Are You Sure Want to Exit ?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 moveTaskToBack(true);

@@ -21,23 +21,24 @@ import java.util.Map;
 
 public class studentAccount extends AppCompatActivity {
     Button btnSubmit;
-    EditText edOldPassword,edNewPassword,edConfirmPassword;
+    EditText edOldPassword, edNewPassword, edConfirmPassword;
     String dbPassword;
     Intent intent;
     private String uname;
     private ProgressDialog mProgress;
 
-    private FirebaseFirestore db=FirebaseFirestore.getInstance();
-    private Map <String,String> LoginData=new HashMap<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Map<String, String> LoginData = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_account);
 
-        btnSubmit=(Button)findViewById(R.id.btnChangePasswd1);
-        edNewPassword=(EditText)findViewById(R.id.edNewPassword1);
-        edOldPassword=(EditText)findViewById(R.id.edOldPassword1);
-        edConfirmPassword=(EditText)findViewById(R.id.edConfPassword1);
+        btnSubmit = (Button) findViewById(R.id.btnChangePasswd1);
+        edNewPassword = (EditText) findViewById(R.id.edNewPassword1);
+        edOldPassword = (EditText) findViewById(R.id.edOldPassword1);
+        edConfirmPassword = (EditText) findViewById(R.id.edConfPassword1);
 
 
         mProgress = new ProgressDialog(studentAccount.this);
@@ -46,30 +47,29 @@ public class studentAccount extends AppCompatActivity {
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
 
-        intent=getIntent();
+        intent = getIntent();
 
-        dbPassword=intent.getStringExtra("iPassword1");
-        uname=intent.getStringExtra("iUserName1");
-        
+        dbPassword = intent.getStringExtra("iPassword1");
+        uname = intent.getStringExtra("iUserName1");
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(TextUtils.isEmpty(edOldPassword.getText())){
+                if (TextUtils.isEmpty(edOldPassword.getText())) {
                     edOldPassword.setError("Enter Password");
                 }
-                if(!TextUtils.equals(dbPassword,edOldPassword.getText())){
+                if (!TextUtils.equals(dbPassword, edOldPassword.getText())) {
                     edOldPassword.setError("Enter Correct Password");
                 }
-                if(TextUtils.isEmpty(edNewPassword.getText())){
+                if (TextUtils.isEmpty(edNewPassword.getText())) {
                     edNewPassword.setError("Enter New Password");
                 }
-                if(TextUtils.isEmpty(edConfirmPassword.getText())){
+                if (TextUtils.isEmpty(edConfirmPassword.getText())) {
                     edConfirmPassword.setError("Confirm Password");
                 }
-                if(!TextUtils.equals(edNewPassword.getText().toString(),edConfirmPassword.getText().toString())){
+                if (!TextUtils.equals(edNewPassword.getText().toString(), edConfirmPassword.getText().toString())) {
                     edConfirmPassword.setError("Password Do Not Match");
-                }
-                else if((!TextUtils.isEmpty(edConfirmPassword.getText() )&& (!TextUtils.isEmpty(edOldPassword.getText())&&(!TextUtils.isEmpty(edNewPassword.getText()))))) {
+                } else if ((!TextUtils.isEmpty(edConfirmPassword.getText()) && (!TextUtils.isEmpty(edOldPassword.getText()) && (!TextUtils.isEmpty(edNewPassword.getText()))))) {
                     mProgress.show();
                     LoginData.put("password", edConfirmPassword.getText().toString());
                     db.collection("student").document(uname).update("password", edConfirmPassword.getText().toString())
@@ -78,8 +78,8 @@ public class studentAccount extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     mProgress.dismiss();
                                     Toast.makeText(studentAccount.this, "Updated Successfully \n Please Login with New Password", Toast.LENGTH_LONG).show();
-                                intent=new Intent(getApplicationContext(), Login.class);
-                                startActivity(intent);
+                                    intent = new Intent(getApplicationContext(), Login.class);
+                                    startActivity(intent);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

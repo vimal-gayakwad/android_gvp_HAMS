@@ -35,22 +35,23 @@ import java.util.Map;
 public class wardenReport extends Activity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<Long> rollno = new ArrayList<Long>();
-    private Map<String,String> MonthList = new HashMap();
+    private Map<String, String> MonthList = new HashMap();
     private WebView webView;
     private String header = "", body = "", footer = "";
-    private TextView title,months;
+    private TextView title, months;
     private ProgressDialog mProgress;
     private Button printPDF;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_report);
 
         //Initilization
-        title=(TextView)findViewById(R.id.txtTitleReport);
-        months=(TextView) findViewById(R.id.txtMonth);
+        title = (TextView) findViewById(R.id.txtTitleReport);
+        months = (TextView) findViewById(R.id.txtMonth);
         webView = (WebView) findViewById(R.id.webviewAbs);
-        printPDF=(Button)findViewById(R.id.btnPrint);
+        printPDF = (Button) findViewById(R.id.btnPrint);
 
         printPDF.setVisibility(View.VISIBLE);
 
@@ -73,7 +74,7 @@ public class wardenReport extends Activity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 rollno.add(Long.valueOf(document.getId()));
                             }
@@ -90,19 +91,43 @@ public class wardenReport extends Activity {
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
 
-                                            for(QueryDocumentSnapshot document : task.getResult()){
-                                                if(document.getId().contains("Jan")){ MonthList.put("1","Jan"); }
-                                                if(document.getId().contains("Feb")){ MonthList.put("2","Feb"); }
-                                                if(document.getId().contains("Mar")){ MonthList.put("3","Mar"); }
-                                                if(document.getId().contains("Apr")){ MonthList.put("4","Apr"); }
-                                                if(document.getId().contains("May")){ MonthList.put("5","May"); }
-                                                if(document.getId().contains("Jun")){ MonthList.put("6","Jun");}
-                                                if(document.getId().contains("Jul")){ MonthList.put("7","Jul"); }
-                                                if(document.getId().contains("Aug")){ MonthList.put("8","Aug"); }
-                                                if(document.getId().contains("Sep")){ MonthList.put("9","Sep"); }
-                                                if(document.getId().contains("Oct")){ MonthList.put("10","Oct"); }
-                                                if(document.getId().contains("Nov")){ MonthList.put("11","Nov"); }
-                                                if(document.getId().contains("Dec")){ MonthList.put("12","Dec"); }
+                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                                if (document.getId().contains("Jan")) {
+                                                    MonthList.put("1", "Jan");
+                                                }
+                                                if (document.getId().contains("Feb")) {
+                                                    MonthList.put("2", "Feb");
+                                                }
+                                                if (document.getId().contains("Mar")) {
+                                                    MonthList.put("3", "Mar");
+                                                }
+                                                if (document.getId().contains("Apr")) {
+                                                    MonthList.put("4", "Apr");
+                                                }
+                                                if (document.getId().contains("May")) {
+                                                    MonthList.put("5", "May");
+                                                }
+                                                if (document.getId().contains("Jun")) {
+                                                    MonthList.put("6", "Jun");
+                                                }
+                                                if (document.getId().contains("Jul")) {
+                                                    MonthList.put("7", "Jul");
+                                                }
+                                                if (document.getId().contains("Aug")) {
+                                                    MonthList.put("8", "Aug");
+                                                }
+                                                if (document.getId().contains("Sep")) {
+                                                    MonthList.put("9", "Sep");
+                                                }
+                                                if (document.getId().contains("Oct")) {
+                                                    MonthList.put("10", "Oct");
+                                                }
+                                                if (document.getId().contains("Nov")) {
+                                                    MonthList.put("11", "Nov");
+                                                }
+                                                if (document.getId().contains("Dec")) {
+                                                    MonthList.put("12", "Dec");
+                                                }
                                             }
 
                                             int MAbsent = 0, EAbsent = 1;
@@ -113,7 +138,7 @@ public class wardenReport extends Activity {
                                                     if (document.contains("" + rollno.get(i)) && document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
                                                         MAbsent++;
                                                     }
-                                                    if (document.contains("" + rollno.get(i)) && document.getId().contains("evening") && document.getString("" +rollno.get(i)).contains("a")) {
+                                                    if (document.contains("" + rollno.get(i)) && document.getId().contains("evening") && document.getString("" + rollno.get(i)).contains("a")) {
                                                         EAbsent++;
                                                     }
                                                 }
@@ -122,7 +147,7 @@ public class wardenReport extends Activity {
                                                 MAbsent = 0;
                                                 EAbsent = 0;
                                             }
-                                            months.setText("    Including : "+MonthList.values());
+                                            months.setText("    Including : " + MonthList.values());
                                             webView.loadData(header + body + footer, "text/html; charset=utf-8", "UTF-8");
                                             mProgress.dismiss();
                                         }
@@ -134,10 +159,10 @@ public class wardenReport extends Activity {
         printPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PrintManager printManager=(PrintManager)wardenReport.this.getSystemService(Context.PRINT_SERVICE);
-                String jobName=getString(R.string.app_name)+"Document";
-                PrintDocumentAdapter printDocumentAdapter=webView.createPrintDocumentAdapter(jobName);
-                PrintJob printJob=printManager.print(jobName,printDocumentAdapter,new PrintAttributes.Builder().build());
+                PrintManager printManager = (PrintManager) wardenReport.this.getSystemService(Context.PRINT_SERVICE);
+                String jobName = getString(R.string.app_name) + "Document";
+                PrintDocumentAdapter printDocumentAdapter = webView.createPrintDocumentAdapter(jobName);
+                PrintJob printJob = printManager.print(jobName, printDocumentAdapter, new PrintAttributes.Builder().build());
             }
         });
     }

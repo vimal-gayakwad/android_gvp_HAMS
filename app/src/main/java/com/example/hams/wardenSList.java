@@ -85,15 +85,15 @@ public class wardenSList extends Activity {
                                             int i;
                                             for ( i = 0; i < rollno.size(); i++) {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    if (Long.valueOf(document.getString("RollNo"))==rollno.get(i)){ //&& document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
-                                                                Sname=document.getString("StudentName");
-                                                                Address=document.getString("Address");
-                                                                Contact=document.getString("Contact");
-                                                                Email=document.getString("Email");
-                                                                Department=document.getString("Department");
-                                                                RollNo= Long.parseLong(document.getString("RollNo"));
-                                                        body += "<tr><td>" + (i+1) + "</td><td>" +rollno.get(i) + "</td><td>" +Sname + "</td><td>" + Address + "</td><td>" + Contact + "</td><td>" + Email + "</td><td>" + Department+ "</td></tr>";
-                                                   }
+                                                    if (Long.valueOf(document.getString("RollNo")) == rollno.get(i)) { //&& document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
+                                                        Sname = document.getString("StudentName");
+                                                        Address = document.getString("Address");
+                                                        Contact = document.getString("Contact");
+                                                        Email = document.getString("Email");
+                                                        Department = document.getString("Department");
+                                                        RollNo = Long.parseLong(document.getString("RollNo"));
+                                                        body += "<tr><td>" + (i + 1) + "</td><td>" + rollno.get(i) + "</td><td>" + Sname + "</td><td>" + Address + "</td><td>" + Contact + "</td><td>" + Email + "</td><td>" + Department + "</td></tr>";
+                                                    }
                                                 }
                                             }
                                             }
