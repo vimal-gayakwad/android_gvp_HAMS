@@ -57,4 +57,10 @@
     <string name="register_toast_added_sucessfully">"ઉમેરવા માં આવ્યું છે "</string>
     <string name="register_toast_added_failed">"ઉમેરવા માં ખામી આવી "</string>
     <string name="login_spinner_textview">"ઉપયોગ કર્તા ની પસંદગી કરો "</string>
+    <string name="logout_title">લૉગઆઉટ કરવું છે ?</string>
+    <string name="logout_positive">"હા "</string>
+    <string name="logout_negative">"ના "</string>
+    <string name="exit_title">બહાર નીકળવું છે  ?</string>
+    <string name="exit_positive">"હા "</string>
+    <string name="exit_negative">"ના "</string>
 </resources>
