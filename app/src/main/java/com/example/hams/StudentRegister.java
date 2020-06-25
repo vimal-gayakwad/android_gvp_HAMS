@@ -63,7 +63,6 @@ public class StudentRegister extends AppCompatActivity {
         RollNo = (EditText) findViewById(R.id.edRollNo);
 
         birthdate.setText("dd-mm-yyyy");
-
         mProgress = new ProgressDialog(StudentRegister.this);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
