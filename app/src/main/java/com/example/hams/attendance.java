@@ -2,6 +2,7 @@ package com.example.hams;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -49,7 +50,9 @@ public class attendance extends AppCompatActivity {
     private String present;
     private String attTime;// attendance time
     private int currentTime;
-   private GridLayout gridview;
+    private GridLayout gridview;
+    Locale locale = Locale.US;
+
     ////////////////////////
     ArrayList<String> keyList;
     HashMap<String, String> meMap = new HashMap<String, String>();
@@ -61,18 +64,9 @@ public class attendance extends AppCompatActivity {
     private RadioButton rdMorning, rdEvening;
     final Calendar myCalendar = Calendar.getInstance();
     /////////////////////////////////////////////////
-    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            // TODO Auto-generated method stub
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        }
-    };
+
+
 
     ///////////////////////////////////////
     private void updateLabel() {
@@ -96,13 +90,33 @@ public class attendance extends AppCompatActivity {
         rdEvening = (RadioButton) findViewById(R.id.rdEvening);
         rdMorning = (RadioButton) findViewById(R.id.rdMorning);
         gridview = (GridLayout) findViewById(R.id.grd);
-
         gridview.setColumnCount(getColumn());
         mProgress = new ProgressDialog(attendance.this);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
+        ///to make locale fixed for datepicker even language is changed
+        Locale locale = Locale.US;
+        Locale.setDefault(locale);
+        Configuration configuration = getApplicationContext().getResources().getConfiguration();
+        configuration.setLocale(locale);
+        configuration.setLayoutDirection(locale);
+        getApplicationContext().createConfigurationContext(configuration);
+
+        ///initialize datepicker dialog
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+        };
+
+
 
         //////////////////////////////////////////////////////////
         Date c = Calendar.getInstance().getTime();
@@ -125,6 +139,7 @@ public class attendance extends AppCompatActivity {
         edDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 new DatePickerDialog(attendance.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -186,7 +201,6 @@ public class attendance extends AppCompatActivity {
                 }
             }
         });
-
 
 
     }

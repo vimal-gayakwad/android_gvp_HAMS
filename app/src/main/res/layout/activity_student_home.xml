@@ -12,20 +12,40 @@
         android:background="@drawable/st_bg"
         android:orientation="vertical"
         android:weightSum="17">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="82dp"
             android:layout_marginTop="10dp"
             android:layout_weight="2">
+
             <TextView
                 android:id="@+id/textGrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="166dp"
+                android:layout_height="105dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
-                android:text="Welcome to HAMS"
+                android:layout_marginStart="39dp"
+                android:layout_marginBottom="18dp"
+                android:text="@string/student_name_plate"
                 android:textColor="@android:color/white"
                 android:textSize="34sp" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="108dp"
+                android:layout_height="130dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="59dp"
+                android:layout_marginEnd="39dp"
+                android:layout_marginBottom="6dp"
+                android:layout_toEndOf="@+id/textGrid"
+                app:srcCompat="@drawable/warden_icon" />
+
         </RelativeLayout>
+
         <GridLayout
             android:id="@+id/mainGrid"
             android:layout_width="match_parent"

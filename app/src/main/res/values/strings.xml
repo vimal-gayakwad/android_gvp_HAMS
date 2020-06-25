@@ -4,6 +4,7 @@
     <string name="mprogress_msg">Please Wait</string>
     <!--for Login and title xml-->
     <string name="app_name" translatable="false">HAMS</string>
+    <string name="login_spinner_textview">Select User Type</string>
     <string name="login_main_title">Login</string>
     <string name="login_userid_hint">User Id</string>
     <string name="login_password_hint">Password</string>
@@ -16,6 +17,8 @@
     <string name="login_setError_uname">User ID Required</string>
     <string name="login_setError_password">"Password Required"</string>
     <!--for warden home-->
+    <string name="warden_name_plate" translatable="false">Welcome,Warden</string>
+    <string name="student_name_plate" translatable="false">Welcome,Student</string>
     <string name="warden_home_attendance">Attendance</string>
     <string name="warden_home_report">Report</string>
     <string name="warden_home_register">Register</string>
@@ -87,4 +90,10 @@
         <item>Dec</item>
     </string-array>
     <string name="Prompt_Months" translatable="false">Select a month</string>
+
+    <string-array name="userstype">
+        <item>Choose..</item>
+        <item>warden</item>
+        <item>student</item>
+    </string-array>
 </resources>

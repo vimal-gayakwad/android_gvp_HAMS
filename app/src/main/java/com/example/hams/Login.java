@@ -29,9 +29,9 @@ public class Login extends AppCompatActivity {
     private Spinner spinnerUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Intent intent;
-    private int userType = 0;                                       //for Selected User Type index
-    private String utype = "";                                      //for selected User Type String selection
-    private ProgressDialog mProgress;                      //progress Dialog for login process
+    private int userType = 0;
+    private String utype = "";
+    private ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +66,7 @@ public class Login extends AppCompatActivity {
             btnLogin = (Button) findViewById(R.id.btnLogin);
             spinnerUser = (Spinner) findViewById(R.id.spUsers);
 
-            //add String to spinnerUser
-            String[] arraySpinner = new String[]{"-Select User Type-", "Warden", "Student"};     //for users Spinner Control
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_item, arraySpinner);
-
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerUser.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
 
             //initilize progress dialog for login
             mProgress = new ProgressDialog(Login.this);
@@ -167,7 +159,10 @@ public class Login extends AppCompatActivity {
                                 }
                             });
                         } else {
+
                             Toast.makeText(Login.this,  getString(R.string.login_toast_utype), Toast.LENGTH_SHORT).show();
+                            spinnerUser.setFocusable(true);
+
                         }
                     } else {
                         Toast.makeText(Login.this,  getString(R.string.login_toast_offline), Toast.LENGTH_SHORT).show();
