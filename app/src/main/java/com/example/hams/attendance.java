@@ -42,14 +42,14 @@ import static java.lang.String.valueOf;
 public class attendance extends AppCompatActivity {
 
     private CheckBox checkBox;
-    private int numOfStu = 0;
-    private TextView txtPre, txtAbs, txtTot;
+    private int numberOfStudents = 0;
+    private TextView txtPresent, txtAbsent, txtTotal;
     private EditText edDate;
-    Button submit;
-    String p;
-    String attTime;// attendance time
-    int crTime;
-    GridLayout grd;
+    private Button submit;
+    private String present;
+    private String attTime;// attendance time
+    private int currentTime;
+   private GridLayout gridview;
     ////////////////////////
     ArrayList<String> keyList;
     HashMap<String, String> meMap = new HashMap<String, String>();
@@ -87,23 +87,28 @@ public class attendance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
-        txtPre = (TextView) findViewById(R.id.txtPresent);
-        txtAbs = (TextView) findViewById(R.id.txtAbsent);
-        txtTot = (TextView) findViewById(R.id.txtTotal);
+        txtPresent = (TextView) findViewById(R.id.txtPresent);
+        txtAbsent = (TextView) findViewById(R.id.txtAbsent);
+        txtTotal = (TextView) findViewById(R.id.txtTotal);
         submit = (Button) findViewById(R.id.bt2);
         edDate = (EditText) findViewById(R.id.edDate);
         radioGroup = (RadioGroup) findViewById(R.id.prTime);
         rdEvening = (RadioButton) findViewById(R.id.rdEvening);
         rdMorning = (RadioButton) findViewById(R.id.rdMorning);
+        gridview = (GridLayout) findViewById(R.id.grd);
 
-        grd = (GridLayout) findViewById(R.id.grd);
-        grd.setColumnCount(getColumn());
+        gridview.setColumnCount(getColumn());
+        mProgress = new ProgressDialog(attendance.this);
+        mProgress.setTitle("Processing...");
+        mProgress.setMessage("Please wait...");
+        mProgress.setCancelable(false);
+        mProgress.setIndeterminate(true);
 
         //////////////////////////////////////////////////////////
         Date c = Calendar.getInstance().getTime();
-        crTime = Calendar.HOUR_OF_DAY;
+        currentTime = Calendar.HOUR_OF_DAY;
 
-        if (crTime <= 12) {
+        if (currentTime <= 12) {
             rdMorning.setChecked(true);
         } else {
             rdEvening.setChecked(true);
@@ -114,11 +119,6 @@ public class attendance extends AppCompatActivity {
         String formattedDate = df.format(c);
         edDate.setText(formattedDate);
         ////////////////////////////////////////
-        mProgress = new ProgressDialog(attendance.this);
-        mProgress.setTitle("Processing...");
-        mProgress.setMessage("Please wait...");
-        mProgress.setCancelable(false);
-        mProgress.setIndeterminate(true);
 
         submit.setText("Submit");
         /////////////////////////////////////////////////
@@ -150,8 +150,8 @@ public class attendance extends AppCompatActivity {
                                 checkBox.setOnClickListener(getOnClickDoSomething(checkBox));
                                 checkBox.setPadding(20, 20, 20, 20);
                                 checkBox.setShadowLayer(1, 1, 1, 1);
-                                grd.addView(checkBox);
-                                numOfStu++;
+                                gridview.addView(checkBox);
+                                numberOfStudents++;
                                 mProgress.dismiss();
                             }
                         } else {
@@ -159,7 +159,7 @@ public class attendance extends AppCompatActivity {
                             Toast.makeText(attendance.this, "" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
 
-                        txtTot.setText(valueOf(numOfStu));
+                        txtTotal.setText(valueOf(numberOfStudents));
                     }
                 });
 /////////////////////////////////////////////////////////////
@@ -167,20 +167,28 @@ public class attendance extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mProgress.show();
-                if (rdMorning.isChecked()) {
-                    attTime = "morning";
+                if (netCheck.checkConnection(getApplicationContext())) {
+                    mProgress.show();
+                    if (rdMorning.isChecked()) {
+                        attTime = "morning";
+                    } else {
+                        attTime = "evening";
+                    }
+                    keyList = new ArrayList<>(meMap.keySet());
+                    ArrayList<String> valueList = new ArrayList<>(meMap.values());
+                    for (int i = 0; i < keyList.size(); i++) {
+                        user.put(keyList.get(i), "present");
+                    }
+                    saveInfo();
                 } else {
-                    attTime = "evening";
+                    mProgress.dismiss();
+                    Toast.makeText(attendance.this, getString(R.string.login_toast_offline), Toast.LENGTH_SHORT).show();
                 }
-                keyList = new ArrayList<>(meMap.keySet());
-                ArrayList<String> valueList = new ArrayList<>(meMap.values());
-                for (int i = 0; i < keyList.size(); i++) {
-                    user.put(keyList.get(i), "p");
-                }
-                saveInfo();
             }
         });
+
+
+
     }
 
     private int getColumn() {
@@ -208,14 +216,14 @@ public class attendance extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         mProgress.dismiss();
-                        Toast.makeText(attendance.this, "Attendance Added Successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(attendance.this, getString(R.string.attendance_toast_added_sucsess), Toast.LENGTH_LONG).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         mProgress.dismiss();
-                        Toast.makeText(attendance.this, "Error While Adding " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(attendance.this, getString(R.string.attendance_toast_added_failed) + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -239,13 +247,13 @@ public class attendance extends AppCompatActivity {
 
     /////////perform operation on checkboxStateChangedListner
     private void operation() {
-        int abs, prs;
+        int prs;
         int ab;
-        abs = numOfStu;
+        int abs = numberOfStudents;
         prs = meMap.size();
         ab = (abs - prs);
-        txtAbs.setText(valueOf(ab));
-        p = (valueOf(meMap.size()));
-        txtPre.setText(p);
+        txtAbsent.setText(valueOf(ab));
+        present = (valueOf(meMap.size()));
+        txtPresent.setText(present);
     }
 }

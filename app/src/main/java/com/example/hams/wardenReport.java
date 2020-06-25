@@ -57,8 +57,8 @@ public class wardenReport extends Activity {
 
         //initilize progress dialog
         mProgress = new ProgressDialog(wardenReport.this);
-        mProgress.setTitle("Processing...");
-        mProgress.setMessage("Please wait...");
+        mProgress.setTitle(getString(R.string.mprogress_title));
+        mProgress.setMessage(getString(R.string.mprogress_msg));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
         mProgress.show();

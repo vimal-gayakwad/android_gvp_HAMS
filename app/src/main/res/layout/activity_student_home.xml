@@ -12,13 +12,11 @@
         android:background="@drawable/st_bg"
         android:orientation="vertical"
         android:weightSum="17">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="10dp"
             android:layout_weight="2">
-
             <TextView
                 android:id="@+id/textGrid"
                 android:layout_width="wrap_content"
@@ -27,9 +25,7 @@
                 android:text="Welcome to HAMS"
                 android:textColor="@android:color/white"
                 android:textSize="34sp" />
-
         </RelativeLayout>
-
         <GridLayout
             android:id="@+id/mainGrid"
             android:layout_width="match_parent"
@@ -40,7 +36,6 @@
             android:columnOrderPreserved="false"
             android:padding="14dp"
             android:rowCount="3">
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/attendance"
                 android:layout_width="0dp"
@@ -52,34 +47,29 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="16dp"
                     android:orientation="vertical">
-
                     <ImageView
                         android:id="@+id/imgAttend"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center_horizontal"
                         android:src="@raw/a" />
-
                     <TextView
+                        android:id="@+id/language"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Attendance"
+                        android:text="@string/warden_home_attendance"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -90,7 +80,6 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,7 +97,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Account"
+                        android:text="@string/warden_home_account"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
@@ -128,36 +117,28 @@
                 android:layout_marginBottom="16dp"
                 app:cardCornerRadius="8dp"
                 app:cardElevation="8dp">
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_margin="16dp"
                     android:orientation="vertical">
-
                     <ImageView
                         android:id="@+id/imgLogout"
                         android:layout_width="90dp"
                         android:layout_height="90dp"
                         android:layout_gravity="center_horizontal"
                         android:src="@raw/g" />
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Log out"
+                        android:text="@string/warden_home_logout"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
-
         </GridLayout>
-
     </LinearLayout>
-
 </ScrollView>

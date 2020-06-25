@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="Attendance"
+        android:text="@string/attendance_title"
         android:textAlignment="center"
         android:textSelectHandle="@color/colorPrimary"
         android:textSelectHandleLeft="@color/colorPrimary"
@@ -36,13 +36,13 @@
             android:id="@+id/rdMorning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Morning" />
+            android:text="@string/attendance_check_morning" />
 
         <RadioButton
             android:id="@+id/rdEvening"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Evening" />
+            android:text="@string/attendance_check_evening" />
     </RadioGroup>
 
     <LinearLayout
@@ -56,7 +56,7 @@
             android:layout_width="56dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Total Student :" />
+            android:text="@string/attendance_text_total" />
 
         <TextView
             android:id="@+id/txtTotal"
@@ -70,7 +70,7 @@
             android:layout_width="21dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Present :"
+            android:text="@string/attendance_text_present"
             android:textColor="#4CAF50" />
 
         <TextView
@@ -86,7 +86,7 @@
             android:layout_width="5dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Absent :"
+            android:text="@string/attendance_text_absent"
             android:textColor="#F44336" />
 
         <TextView
@@ -117,5 +117,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/login_form_details"
-        android:text="Submit" />
+        android:text="@string/attendance_btn_submit" />
 </LinearLayout>

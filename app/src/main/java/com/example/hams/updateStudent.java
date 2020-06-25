@@ -236,7 +236,7 @@ public class updateStudent extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(getApplicationContext(), "Added Successfully", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Updated Successfully", Toast.LENGTH_LONG).show();
 
                                 }
                             })
@@ -244,7 +244,7 @@ public class updateStudent extends AppCompatActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     mProgress.dismiss();
-                                    Toast.makeText(getApplicationContext(), "Error While Adding " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Error While Updating " + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
                     mProgress.dismiss();

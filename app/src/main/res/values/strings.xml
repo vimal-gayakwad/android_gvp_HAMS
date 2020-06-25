@@ -1,12 +1,76 @@
 <resources>
-    <string name="app_name">HAMS</string>
-    <string name="register">REGISTER</string>
-    <string name="login_email_hint">Email</string>
+    <!-- for mprogess dialog-->
+    <string name="mprogress_title">Processing...</string>
+    <string name="mprogress_msg">Please Wait</string>
+    <!--for Login and title xml-->
+    <string name="app_name" translatable="false">HAMS</string>
+    <string name="login_main_title">Login</string>
+    <string name="login_userid_hint">User Id</string>
     <string name="login_password_hint">Password</string>
-    <string name="signup_login_hint">Already have an account? Sign In</string>
-    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="login_button_text">Login</string>
+    <!--login java toast-->
+    <string name="login_toast_utype">Please Select User Type </string>
+    <string name="login_toast_incorrect_credentials">Incorrect User ID Or Password</string>
+    <string name="login_toast_offline">You Are Offline  Please Check Your Internet And Retry</string>
+    <!--login setError-->
+    <string name="login_setError_uname">User ID Required</string>
+    <string name="login_setError_password">"Password Required"</string>
+    <!--for warden home-->
+    <string name="warden_home_attendance">Attendance</string>
+    <string name="warden_home_report">Report</string>
+    <string name="warden_home_register">Register</string>
+    <string name="warden_home_list">List</string>
+    <string name="warden_home_account">Account</string>
+    <string name="warden_home_logout">Logout</string>
 
+    <!--for for attendance page xml-->
+    <string name="attendance_title">Attendance</string>
+    <string name="attendance_check_morning">Morning</string>
+    <string name="attendance_check_evening">Evening</string>
+    <string name="attendance_text_total">Total Students:</string>
+    <string name="attendance_text_present">Present</string>
+    <string name="attendance_text_absent">Absent</string>
+    <string name="attendance_btn_submit">Submit</string>
+    <!--for attendance java Toast -->
+    <string name="attendance_toast_added_sucsess">Attendance Added Successfully</string>
+    <string name="attendance_toast_added_failed">Error While Adding</string>
+    <!--for report java toast-->
+    <string name="report_toast_error">Error</string>
+    <string name="report_html_srno">Sr. No</string>
+    <string name="report_html_rollno">Roll No</string>
+    <string name="report_html_morning">Morning</string>
+    <string name="report_html_evening">Evening</string>
+    <string name="report_title">Student Report</string>
+    <string name="report_month_including">Including..</string>
 
+    <!--for register xml-->
+    <string name="regiter_title">Register Student</string>
+    <string name="register_hint_rollno">Roll No</string>
+    <string name="register_student_name">Student Name</string>
+    <string name="register_address">Address</string>
+    <string name="register_contact">Contact No</string>
+    <string name="register_email">Email ID</string>
+    <string name="register_date_of_birth">Birth Date</string>
+    <string name="register_student_uid">Student User ID</string>
+    <string name="register_student_password">Password</string>
+    <string name="register_btn_submit">Submit</string>
+
+    <!--for register java setError-->
+    <string name="register_setError_rollno">RollNo Required</string>
+    <string name="register_serError_sname">Student Name Required</string>
+    <string name="register_setError_address">Address Required</string>
+    <string name="register_setError_birthdate">Birthdate Required</string>
+    <string name="register_setError_contact">Conatct Required</string>
+    <string name="register_setError_email">Email Required</string>
+    <string name="register_setError_uname">User ID Required</string>
+    <string name="register_setError_password">Password Required</string>
+
+    <!--for register java toast-->
+    <string name="register_toast_select_dept">Select Department</string>
+    <string name="register_toast_added_sucessfully">Added Sucessfully</string>
+    <string name="register_toast_added_failed">Error While Adding</string>
+
+    <!--for month name-->
     <string-array name="months_array">
         <item>--Month--</item>
         <item>Jan</item>
@@ -22,5 +86,5 @@
         <item>Nov</item>
         <item>Dec</item>
     </string-array>
-    <string name="Prompt_Months">Select a month</string>
+    <string name="Prompt_Months" translatable="false">Select a month</string>
 </resources>
