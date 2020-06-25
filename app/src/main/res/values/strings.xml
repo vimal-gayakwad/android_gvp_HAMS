@@ -1,4 +1,13 @@
 <resources>
+    <!--GLOBAL-->
+    <!--logout-->
+    <string name="logout_title"> Logout ?</string>
+    <string name="logout_positive">Yes</string>
+    <string name="logout_negative">No</string>
+    <!--exit-->
+    <string name="exit_title">Exit ?</string>
+    <string name="exit_positive">Yes</string>
+    <string name="exit_negative">No</string>
     <!-- for mprogess dialog-->
     <string name="mprogress_title">Processing...</string>
     <string name="mprogress_msg">Please Wait</string>

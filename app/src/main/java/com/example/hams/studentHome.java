@@ -54,8 +54,8 @@ public class studentHome extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(studentHome.this);
 
-                builder.setTitle("You Want to Logout ?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setTitle(getString(R.string.logout_title));
+                builder.setPositiveButton(getString(R.string.logout_positive), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         SharedPreferences myPrefs = getSharedPreferences("MY",
                                 MODE_PRIVATE);
@@ -69,7 +69,7 @@ public class studentHome extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(getString(R.string.logout_negative), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
@@ -81,14 +81,14 @@ public class studentHome extends AppCompatActivity {
 
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Are You Sure Want to Exit ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.exit_title));
+        builder.setPositiveButton(getString(R.string.exit_positive), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 moveTaskToBack(true);
                 System.exit(1);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getString(R.string.exit_negative), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
             }
         });
