@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lm2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".attendance">
+    android:layout_marginBottom="30dp"
+    android:fillViewport="true"
+    tools:context=".MaintainStudent">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
 
-        android:text="@string/attendance_title"
-        android:textAlignment="center"
-        android:textSelectHandle="@color/colorPrimary"
-        android:textSelectHandleLeft="@color/colorPrimary"
-        android:textSize="30sp" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curved">
 
-    <EditText
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/attendance_title"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent2"
+                android:textSize="35sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <EditText
         android:id="@+id/edDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -116,6 +126,8 @@
         android:id="@+id/bt2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/login_form_details"
+
+        android:background="@drawable/radius"
         android:text="@string/attendance_btn_submit" />
 </LinearLayout>
+</ScrollView>

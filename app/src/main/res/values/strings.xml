@@ -11,6 +11,10 @@
     <!-- for mprogess dialog-->
     <string name="mprogress_title">Processing...</string>
     <string name="mprogress_msg">Please Wait</string>
+    <string name="report_including">Including</string>
+
+
+
     <!--for Login and title xml-->
     <string name="app_name" translatable="false">HAMS</string>
     <string name="login_spinner_textview">Select User Type</string>
@@ -65,7 +69,7 @@
     <string name="register_date_of_birth">Birth Date</string>
     <string name="register_student_uid">Student User ID</string>
     <string name="register_student_password">Password</string>
-    <string name="register_btn_submit">Submit</string>
+    <string name="register_register">Register</string>
 
     <!--for register java setError-->
     <string name="register_setError_rollno">RollNo Required</string>
@@ -79,8 +83,56 @@
 
     <!--for register java toast-->
     <string name="register_toast_select_dept">Select Department</string>
-    <string name="register_toast_added_sucessfully">Added Sucessfully</string>
+    <string name="register_toast_added_sucessfully">Added Successfully</string>
     <string name="register_toast_added_failed">Error While Adding</string>
+
+    <!--for student report xml-->
+    <string name="student_report_title">Report</string>
+    <!--student report java toast-->
+    <string name="student_report_toast_nodata">No Data Found</string>
+    <!--webview html string-->
+    <string name="html_overall_absent">Overall Absent</string>
+    <string name="html_absent">Absent</string>
+    <string name="html_present">Present</string>
+    <string name="html_absent_datetime">Absent DateTime</string>
+    <string name="html_morning">Morning</string>
+    <string name="html_evening">Evening</string>
+    <string name="html_overall">Overall</string>
+    <string name="html_total_working_time">Number of Prayer Time</string>
+    <string name="html_percentage">Percentage</string>
+
+    <string name="html_rollno">RollNo</string>
+    <string name="student_report">Student Report</string>
+    <!--student maintain-->
+    <string name="student_maintain_title">Student Detials Maintain</string>
+    <string name="student_maintain_rollno">Roll No</string>
+    <string name="student_maintain_register">Register</string>
+    <string name="student_maintain_delete">Delete</string>
+    <string name="student_maintain_update">Update</string>
+
+    <!--new warden-->
+    <string name="newwarden_title">Add New Warden</string>
+    <string name="newwarden_uid">Enter User ID</string>
+    <string name="newwarden_password">Password</string>
+    <string name="newwarden_submit">Submit</string>
+
+    <!--student report-->
+    <string name="stu_report_print">Print</string>
+    <!--student detials update-->
+    <string name="stu_update_title">Update Stu. Details</string>
+    <!--student account manager-->
+    <string name="stu_ac_title">Account Manager</string>
+    <string name="stu_ac_current_password">Enter Current Password</string>
+    <string name="stu_ac_new_password">Enter New Password</string>
+    <string name="stu_ac_confirm_password">Confirm Password</string>
+    <string name="stu_update">Update</string>
+
+    <!--warden account-->
+    <string name="warden_ac_title">Account Manager</string>
+    <string name="warden_ac_cur_password">Enter Current Password</string>
+    <string name="warden_ac_new_password">Enter New Password</string>
+    <string name="warden_ac_cofirm_password">Confirm Password</string>
+    <string name="warden_ac_add_new_warden">Add New Warden</string>
 
     <!--for month name-->
     <string-array name="months_array">
@@ -105,4 +157,5 @@
         <item>warden</item>
         <item>student</item>
     </string-array>
+    <string name="register_btn_submit">"register "</string>
 </resources>

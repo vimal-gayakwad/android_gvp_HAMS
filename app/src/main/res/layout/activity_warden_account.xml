@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Account Manager"
+                android:text="@string/warden_ac_title"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent2"
                 android:textSize="35dp" />
@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter Current Password"
+                android:hint="@string/warden_ac_cur_password"
                 android:inputType="textPassword"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter New Password"
+                android:hint="@string/warden_ac_new_password"
                 android:inputType="textPassword"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Confirm Password "
+                android:hint="@string/warden_ac_cofirm_password"
                 android:inputType="textPassword"
                 android:textSize="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -94,7 +94,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/radius"
-                android:text="Update"
+                android:text="@string/stu_update"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -111,7 +111,7 @@
                 android:layout_height="60dp"
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/radius"
-                android:text="Add New Warden"
+                android:text="@string/warden_ac_add_new_warden"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>

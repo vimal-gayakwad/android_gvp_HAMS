@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearStudent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".StudentReport">
 
-    <TextView
-        android:id="@+id/txtTitleReport"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="30sp"
+    android:fillViewport="true"
+    tools:context=".StudentRegister">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#120D0D"
-        android:textSize="30dp" />
+        android:layout_marginBottom="20sp"
+        android:orientation="vertical"
+        tools:ignore="WebViewLayout">
 
-    <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/curved">
+
+            <TextView
+                android:id="@+id/txtTitleReport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:text=""
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent2"
+                android:textSize="35sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
         android:id="@+id/txtMonth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +52,7 @@
         android:id="@+id/btnPrint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Print"
+        android:text="@string/stu_report_print"
         android:visibility="invisible" />
 </LinearLayout>
+</ScrollView>

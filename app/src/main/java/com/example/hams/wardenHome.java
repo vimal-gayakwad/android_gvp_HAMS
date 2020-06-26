@@ -26,6 +26,9 @@ public class wardenHome extends AppCompatActivity {
     private String UserName;
     private long RollNo;
     private String Password;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +111,15 @@ public class wardenHome extends AppCompatActivity {
                 builder.setTitle(getString(R.string.logout_title));
                 builder.setPositiveButton(getString(R.string.logout_positive), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        SharedPreferences myPrefs = getSharedPreferences("MY",
+
+                        SharedPreferences myPrefs = getSharedPreferences("MyPref",
                                 MODE_PRIVATE);
                         SharedPreferences.Editor editor = myPrefs.edit();
-                        editor.clear();
+
+                        editor.putBoolean("login",false);
                         editor.commit();
+
+                        finish();
                         AppState.getSingleInstance().setLoggingOut(true);
                         Intent intent = new Intent(wardenHome.this,
                                 Login.class);
@@ -137,6 +144,8 @@ public class wardenHome extends AppCompatActivity {
         builder.setTitle(getString(R.string.exit_title));
         builder.setPositiveButton(getString(R.string.exit_positive), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+
+
                 moveTaskToBack(true);
                 System.exit(1);
             }

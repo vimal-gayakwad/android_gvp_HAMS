@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -32,6 +33,10 @@ public class Login extends AppCompatActivity {
     private int userType = 0;
     private String utype = "";
     private ProgressDialog mProgress;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
+    boolean flag = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,27 +50,19 @@ public class Login extends AppCompatActivity {
         }
 
 
-//        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-//        SharedPreferences.Editor editor = pref.edit();
-//        editor.putBoolean("login", true);
-//        editor.putString("utype", "warden"); // Storing User Type
-//        editor.putString("password", "12345");
-//
-//        boolean flag = false;
-//
-//        flag = pref.getBoolean("login", true);
-//
-//        if (flag == true) {
-//
-//            intent = new Intent(getApplicationContext(), wardenHome.class);
-//            startActivity(intent);
-//        } else {
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        editor = pref.edit();
+        flag = pref.getBoolean("login", false);
+
+        if (flag == true) {
+            intent = new Intent(getApplicationContext(), wardenHome.class);
+            startActivity(intent);
+        } else {
 
             edUsername = (EditText) findViewById(R.id.edusername);
             edPassword = (EditText) findViewById(R.id.edpassword);
             btnLogin = (Button) findViewById(R.id.btnLogin);
             spinnerUser = (Spinner) findViewById(R.id.spUsers);
-
 
 
             //initilize progress dialog for login
@@ -102,7 +99,7 @@ public class Login extends AppCompatActivity {
 
                         //check the number of spinnerUser value and set user type
                         if (userType == 0) {
-                            Toast.makeText(Login.this,  getString(R.string.login_toast_utype), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, getString(R.string.login_toast_utype), Toast.LENGTH_SHORT).show();
                             spinnerUser.setFocusable(true);
                             mProgress.dismiss();
                         }
@@ -142,14 +139,20 @@ public class Login extends AppCompatActivity {
                                             if (userType == 2) {
                                                 Long rl = Long.parseLong((String) documentSnapshot.get("RollNo"));
                                                 intent.putExtra("iRollNo", rl);
+                                                editor.putLong("RollNo", rl);
                                             }
+                                            editor.putString("utype", ut);
+                                            editor.putBoolean("login", true);
+                                            editor.putString("password", ps);
+                                            editor.putString("username",un);
+                                            editor.commit();
                                             intent.putExtra("docId", documentSnapshot.getId());
                                             intent.putExtra("iUserName", un);//edUsername.getText().toString());
                                             intent.putExtra("iPassword", ps);//,edPassword.getText().toString());
                                             intent.putExtra("iUtype", ut);
                                             startActivity(intent);
                                         } else {
-                                            Toast.makeText(Login.this,  getString(R.string.login_toast_incorrect_credentials), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(Login.this, getString(R.string.login_toast_incorrect_credentials), Toast.LENGTH_SHORT).show();
                                             mProgress.dismiss();
                                         }
                                     } else {
@@ -160,16 +163,16 @@ public class Login extends AppCompatActivity {
                             });
                         } else {
 
-                            Toast.makeText(Login.this,  getString(R.string.login_toast_utype), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, getString(R.string.login_toast_utype), Toast.LENGTH_SHORT).show();
                             spinnerUser.setFocusable(true);
 
                         }
                     } else {
-                        Toast.makeText(Login.this,  getString(R.string.login_toast_offline), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, getString(R.string.login_toast_offline), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
     }
 
-//}
+}

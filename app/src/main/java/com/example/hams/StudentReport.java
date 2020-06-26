@@ -58,8 +58,8 @@ public class StudentReport extends Activity {
         months = (TextView) findViewById(R.id.txtMonth);
 
         mProgress = new ProgressDialog(StudentReport.this);
-        mProgress.setTitle("Processing...");
-        mProgress.setMessage("Please wait...");
+        mProgress.setTitle(getString(R.string.mprogress_title));
+        mProgress.setMessage(getString(R.string.mprogress_msg));
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
         //mProgress.show();
@@ -71,9 +71,9 @@ public class StudentReport extends Activity {
 
         header = "<html><body><center><table border='1'" +
                 "padding='10'  style='border-color:blue;font-family: arial, sans-serif;border-collapse: collapse;width: 100%; text-align:center'>" +
-                "<tr ><th colspan='2'>Overall Absents</th></tr><tr><th>Absents</th><th>Absent DateTime</tr></th>";
+                "<tr ><th colspan='2'>"+getString(R.string.html_overall_absent)+"</th></tr><tr><th>"+getString(R.string.html_absent)+"</th>"+getString(R.string.html_absent_datetime)+"<th></tr></th>";
         footer = "</table></center></body></html>";
-        textView.setText("Student Report");
+        textView.setText(getString(R.string.student_report_title));
         db.collection("attendance")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -153,7 +153,7 @@ public class StudentReport extends Activity {
                             float mpercent = 0;
                             float epercent = 0;
                             if ((totalE == 0) || (totalTime == 0) || (totalM == 0)) {
-                                Toast.makeText(StudentReport.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(StudentReport.this, getString(R.string.student_report_toast_nodata), Toast.LENGTH_SHORT).show();
 
                             }
                             try {
@@ -168,15 +168,15 @@ public class StudentReport extends Activity {
                             reportData = "<html>" +
                                     "<body>" +
                                     "<table border='1' style='border-color:blue;font-family: arial, sans-serif;border-collapse: collapse;width: 100%; text-align:center'>" +
-                                    "<tr><th>&nbsp&nbsp&nbsp</th><th>Morning</th><th>Evening</th><th>Overall</th></tr>" +
-                                    "<tr><th>Total Working Time</th><th>" + totalM + "</th><th>" + totalE + "<th rowspan='4'>" + percentage + "%</th></tr>" +
-                                    "<tr><th>Present</th><th>" + MPresent + "</th><th>" + EPresent + "</tr>" +
-                                    "<tr><th>Absent</th><th>" + MAbsent + "</th><th>" + EAbsent + "</tr>" +
-                                    "<tr><th>Percentage</th><th>" + mpercent + "%</th><th>" + epercent + "%</tr>" +
+                                    "<tr><th>&nbsp&nbsp&nbsp</th><th>"+getString(R.string.html_morning)+"</th><th>"+getString(R.string.html_evening)+"</th><th>"+getString(R.string.html_overall)+"</th></tr>" +
+                                    "<tr><th>"+getString(R.string.html_total_working_time)+"</th><th>" + totalM + "</th><th>" + totalE + "<th rowspan='4'>" + percentage + "%</th></tr>" +
+                                    "<tr><th>"+getString(R.string.html_present)+"</th><th>" + MPresent + "</th><th>" + EPresent + "</tr>" +
+                                    "<tr><th>"+getString(R.string.html_absent)+"</th><th>" + MAbsent + "</th><th>" + EAbsent + "</tr>" +
+                                    "<tr><th>"+getString(R.string.html_percentage)+"</th><th>" + mpercent + "%</th><th>" + epercent + "%</tr>" +
                                     "</table>" +
                                     "</body>" +
                                     "</html>";
-                            months.setText("    Including : " + MonthList.values());
+                            months.setText(getString(R.string.report_including) + MonthList.values());
                             webViewReport.loadData(reportData, "text/html; charset=utf-8", "UTF-8");
                             if (ABSDate.size() == 0) {
 
@@ -186,7 +186,7 @@ public class StudentReport extends Activity {
                                 mProgress.dismiss();
                             }
                         } else {
-                            Toast.makeText(StudentReport.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(StudentReport.this, getString(R.string.student_report_toast_nodata), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
                 android:layout_marginBottom="20dp"
-                android:text="Student Maintain"
+                android:text="@string/student_maintain_title"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent2"
                 android:textSize="35sp" />
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Roll No"
+            android:hint="@string/student_maintain_rollno"
             android:inputType="number"
             android:textSize="20sp" />
 
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius"
                 android:padding="20sp"
-                android:text="Register" />
+                android:text="@string/student_maintain_register" />
         </LinearLayout>
 
         <LinearLayout
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius"
                 android:padding="20sp"
-                android:text="Update" />
+                android:text="@string/student_maintain_update" />
         </LinearLayout>
 
         <LinearLayout
@@ -72,16 +72,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="20sp">
-
             <Button
                 android:id="@+id/btnstuDel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/radius"
                 android:padding="20sp"
-                android:text="Delete" />
+                android:text="@string/student_maintain_delete" />
         </LinearLayout>
-
-
     </LinearLayout>
 </ScrollView>

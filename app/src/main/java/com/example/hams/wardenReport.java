@@ -31,10 +31,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class wardenReport extends Activity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private ArrayList<Long> rollno = new ArrayList<Long>();
+    private ArrayList<Long> rollno = new ArrayList<>();
     private Map<String, String> MonthList = new HashMap();
     private WebView webView;
     private String header = "", body = "", footer = "";
@@ -48,10 +49,10 @@ public class wardenReport extends Activity {
         setContentView(R.layout.activity_student_report);
 
         //Initilization
-        title = (TextView) findViewById(R.id.txtTitleReport);
-        months = (TextView) findViewById(R.id.txtMonth);
-        webView = (WebView) findViewById(R.id.webviewAbs);
-        printPDF = (Button) findViewById(R.id.btnPrint);
+        title =  findViewById(R.id.txtTitleReport);
+        months =  findViewById(R.id.txtMonth);
+        webView =  findViewById(R.id.webviewAbs);
+        printPDF = findViewById(R.id.btnPrint);
 
         printPDF.setVisibility(View.VISIBLE);
 
@@ -65,17 +66,17 @@ public class wardenReport extends Activity {
 
         header = "<html><body><center><table border='1'" +
                 "padding='10'  style='border-color:blue;font-family: arial, sans-serif;border-collapse: collapse;width: 100%; text-align:center'>" +
-                "<tr><th>Sr.No</th><th>RollNo</th><th>Morning</th><th>Evening</th></tr>";
+                "<tr><th>Sr.No</th><th>"+getString(R.string.html_rollno)+"</th><th>"+getString(R.string.html_morning)+"</th><th>"+getString(R.string.html_evening)+"</th></tr>";
         footer = "</table></center>" +
                 "</body></html>";
-        title.setText("Student Report");
+        title.setText(getString(R.string.student_report));
 
         db.collection("attendanceList").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                 rollno.add(Long.valueOf(document.getId()));
                             }
                         } else {
@@ -91,7 +92,7 @@ public class wardenReport extends Activity {
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
 
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                            for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
                                                 if (document.getId().contains("Jan")) {
                                                     MonthList.put("1", "Jan");
                                                 }
@@ -135,10 +136,10 @@ public class wardenReport extends Activity {
                                             for (int i = 0; i < rollno.size(); i++) {
 
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    if (document.contains("" + rollno.get(i)) && document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
+                                                    if (document.contains("" + rollno.get(i)) && document.getId().contains("morning") && Objects.requireNonNull(document.getString("" + rollno.get(i))).contains("a")) {
                                                         MAbsent++;
                                                     }
-                                                    if (document.contains("" + rollno.get(i)) && document.getId().contains("evening") && document.getString("" + rollno.get(i)).contains("a")) {
+                                                    if (document.contains("" + rollno.get(i)) && document.getId().contains("evening") && Objects.requireNonNull(document.getString("" + rollno.get(i))).contains("a")) {
                                                         EAbsent++;
                                                     }
                                                 }
@@ -162,7 +163,9 @@ public class wardenReport extends Activity {
                 PrintManager printManager = (PrintManager) wardenReport.this.getSystemService(Context.PRINT_SERVICE);
                 String jobName = getString(R.string.app_name) + "Document";
                 PrintDocumentAdapter printDocumentAdapter = webView.createPrintDocumentAdapter(jobName);
-                PrintJob printJob = printManager.print(jobName, printDocumentAdapter, new PrintAttributes.Builder().build());
+                if (printManager != null) {
+                    PrintJob printJob = printManager.print(jobName, printDocumentAdapter, new PrintAttributes.Builder().build());
+                }
             }
         });
     }
