@@ -71,7 +71,7 @@ public class StudentReport extends Activity {
 
         header = "<html><body><center><table border='1'" +
                 "padding='10'  style='border-color:blue;font-family: arial, sans-serif;border-collapse: collapse;width: 100%; text-align:center'>" +
-                "<tr ><th colspan='2'>"+getString(R.string.html_overall_absent)+"</th></tr><tr><th>"+getString(R.string.html_absent)+"</th>"+getString(R.string.html_absent_datetime)+"<th></tr></th>";
+                "<tr ><th colspan='2'>"+getString(R.string.html_overall_absent)+"</th></tr><tr><th>"+getString(R.string.html_absent)+"</th><th>"+getString(R.string.html_absent_datetime)+"</th></tr>";
         footer = "</table></center></body></html>";
         textView.setText(getString(R.string.student_report_title));
         db.collection("attendance")

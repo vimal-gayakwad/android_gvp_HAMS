@@ -31,7 +31,7 @@
     <string name="login_setError_password">"Password Required"</string>
     <!--for warden home-->
     <string name="warden_name_plate" translatable="false">Welcome,Warden</string>
-    <string name="student_name_plate" translatable="false">Welcome,Student</string>
+    <string name="student_name_plate" translatable="false">Welcome,</string>
     <string name="warden_home_attendance">Attendance</string>
     <string name="warden_home_report">Report</string>
     <string name="warden_home_register">Register</string>
@@ -51,13 +51,6 @@
     <string name="attendance_toast_added_sucsess">Attendance Added Successfully</string>
     <string name="attendance_toast_added_failed">Error While Adding</string>
     <!--for report java toast-->
-    <string name="report_toast_error">Error</string>
-    <string name="report_html_srno">Sr. No</string>
-    <string name="report_html_rollno">Roll No</string>
-    <string name="report_html_morning">Morning</string>
-    <string name="report_html_evening">Evening</string>
-    <string name="report_title">Student Report</string>
-    <string name="report_month_including">Including..</string>
 
     <!--for register xml-->
     <string name="regiter_title">Register Student</string>
@@ -113,7 +106,6 @@
     <!--new warden-->
     <string name="newwarden_title">Add New Warden</string>
     <string name="newwarden_uid">Enter User ID</string>
-    <string name="newwarden_password">Password</string>
     <string name="newwarden_submit">Submit</string>
 
     <!--student report-->
@@ -135,27 +127,10 @@
     <string name="warden_ac_add_new_warden">Add New Warden</string>
 
     <!--for month name-->
-    <string-array name="months_array">
-        <item>--Month--</item>
-        <item>Jan</item>
-        <item>Feb</item>
-        <item>Mar</item>
-        <item>Apr</item>
-        <item>May</item>
-        <item>Jun</item>
-        <item>Jul</item>
-        <item>Aug</item>
-        <item>Sep</item>
-        <item>Oct</item>
-        <item>Nov</item>
-        <item>Dec</item>
-    </string-array>
-    <string name="Prompt_Months" translatable="false">Select a month</string>
 
     <string-array name="userstype">
         <item>Choose..</item>
         <item>warden</item>
         <item>student</item>
     </string-array>
-    <string name="register_btn_submit">"register "</string>
 </resources>

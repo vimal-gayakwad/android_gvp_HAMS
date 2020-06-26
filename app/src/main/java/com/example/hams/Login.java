@@ -56,6 +56,10 @@ public class Login extends AppCompatActivity {
 
         if (flag == true) {
             intent = new Intent(getApplicationContext(), wardenHome.class);
+            intent.putExtra("iUserName", pref.getString("username",""));//edUsername.getText().toString());
+            intent.putExtra("iPassword", pref.getString("password",""));//,edPassword.getText().toString());
+            intent.putExtra("iUtype", pref.getString("utype",""));
+            intent.putExtra("iRollNo",pref.getLong("RollNo",0));
             startActivity(intent);
         } else {
 
@@ -146,6 +150,7 @@ public class Login extends AppCompatActivity {
                                             editor.putString("password", ps);
                                             editor.putString("username",un);
                                             editor.commit();
+
                                             intent.putExtra("docId", documentSnapshot.getId());
                                             intent.putExtra("iUserName", un);//edUsername.getText().toString());
                                             intent.putExtra("iPassword", ps);//,edPassword.getText().toString());

@@ -1,46 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dark_blue">#3023AE</color>
-    <color name="purple">#c86dd7</color>
     <color name="white">#fff</color>
     <color name="login_form_details">#ccffffff</color>
-    <color name="login_form_details_light">#1affffff</color>
-    <color name="login_form_details_medium">#66ffffff</color>
-    <color name="statusBarColor">#FF6C03</color>
 
 
     <color name="colorPrimary">#FF6C03</color>
-    <color name="colorPrimaryDark">#FF6C03</color>
     <color name="colorAccent">#00A5FF</color>
     <color name="colorAccent2">#FF6C03</color>
-    <color name="background">#EEEDEF</color>
 
     <!--colors for modern ui-->
-    <color name="whiteTextColor">#fff</color>
-    <color name="primaryTextColor">#00a5ff</color>
-    <color name="loginBkColor">#f0f0f0</color>
 
     <!--colros for card-->
-    <color name="whiteCardColor">#fff</color>
 
     <!-- 1st Gradient color -->
-    <color name="colorPurple_A400">#C150F9</color>
-    <color name="colorPurple_900">#4A148C</color>
     <!-- ./ 1st Gradient color -->
 
     <!-- 2nd Gradient color -->
     <color name="colorAmber_A400">#FFC400</color>
-    <color name="colorAmber_900">#FF6F00</color>
     <!-- ./ 2nd Gradient color -->
 
     <!-- 3rd Gradient color -->
-    <color name="colorGreen_A400">#00E676</color>
-    <color name="colorGreen_900">#1B5E20</color>
     <!-- ./ 3rd Gradient color -->
 
     <!-- 4th Gradient color -->
-    <color name="colorRed_A400">#FF1744</color>
-    <color name="colorRed_900">#B71C1C</color>
     <!-- ./ 4th Gradient color -->
 
 </resources>

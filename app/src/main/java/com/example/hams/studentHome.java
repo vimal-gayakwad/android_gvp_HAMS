@@ -9,12 +9,14 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class studentHome extends AppCompatActivity {
     private ImageView imgAtt, imgAccount, imgLogout;
     private Intent intent;
     Long RollNo;
     String UserName, Password, docId;
+    TextView txtgridTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +26,13 @@ public class studentHome extends AppCompatActivity {
         imgAtt = (ImageView) findViewById(R.id.imgAttend);
         imgAccount = (ImageView) findViewById(R.id.imgAccount);
         imgLogout = (ImageView) findViewById(R.id.imgLogout);
-
+        txtgridTitle=(TextView)findViewById(R.id.textGridTitle);
         intent = getIntent();
         UserName = intent.getStringExtra("iUserName");
         RollNo = intent.getLongExtra("iRollNo", 0);
         Password = intent.getStringExtra("iPassword");
         docId = intent.getStringExtra("");
+        txtgridTitle.setText(getString(R.string.student_name_plate)+"\n"+UserName);
         imgAtt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,11 +60,12 @@ public class studentHome extends AppCompatActivity {
                 builder.setTitle(getString(R.string.logout_title));
                 builder.setPositiveButton(getString(R.string.logout_positive), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        SharedPreferences myPrefs = getSharedPreferences("MY",
+                        SharedPreferences myPrefs = getSharedPreferences("MyPref",
                                 MODE_PRIVATE);
                         SharedPreferences.Editor editor = myPrefs.edit();
-                        editor.clear();
-                        editor.apply();
+                        editor.putBoolean("login",false);
+                        editor.commit();
+                        finish();
                         AppState.getSingleInstance().setLoggingOut(true);
                         Intent intent = new Intent(studentHome.this,
                                 Login.class);

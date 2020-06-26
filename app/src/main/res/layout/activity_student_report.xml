@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
-    android:layout_marginBottom="30sp"
+    android:layout_marginBottom="30dp"
     android:fillViewport="true"
     tools:context=".StudentRegister">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20sp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         tools:ignore="WebViewLayout">
 
@@ -24,11 +24,11 @@
                 android:id="@+id/txtTitleReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20sp"
+                android:layout_marginBottom="20dp"
                 android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent2"
-                android:textSize="35sp" />
+                android:textSize="35dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 

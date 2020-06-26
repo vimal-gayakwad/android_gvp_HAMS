@@ -15,7 +15,6 @@
     <string name="attendance_check_morning">"સવાર  "</string>
     <string name="attendance_text_total">"કુલ વિદ્યાર્થી "</string>
     <string name="attendance_text_absent">"ગેર હાજર "</string>
-    <string name="Prompt_Months" translatable="false">"મહિનો પસંદ  કરો "</string>
     <string name="attendance_btn_submit">"મોકલી આપો "</string>
     <string name="attendance_text_present">"હાજર "</string>
     <string name="attendance_check_evening">"સાંજ "</string>
@@ -28,13 +27,6 @@
     <string name="mprogress_msg">"કૃપયા પ્રતિક્ષા કરો "</string>
     <string name="attendance_toast_added_sucsess">"હાજરી પુરાઈ ગઈ છે "</string>
     <string name="attendance_toast_added_failed">"કોઈક ખામી આવેલી છે "</string>
-    <string name="report_toast_error">"કોઈક ખામી આવેલી છે "</string>
-    <string name="report_html_srno">"અનુ .  નં "</string>
-    <string name="report_html_rollno">"રોલ નં "</string>
-    <string name="report_html_morning">"સવાર "</string>
-    <string name="report_html_evening">"સાંજ "</string>
-    <string name="report_title">"વિદ્યાર્થી નો રિપોર્ટ "</string>
-    <string name="report_month_including">"સહિત .. "</string>
     <string name="regiter_title">"વિદ્યાર્થી રજિસ્ટર "</string>
     <string name="register_hint_rollno">"રોલ નં. "</string>
     <string name="register_student_name">"વિદ્યાર્થી નું નામ  "</string>
@@ -44,7 +36,6 @@
     <string name="register_date_of_birth">"જન્મ તારીખ "</string>
     <string name="register_student_uid">"વિદ્યાર્થી યુઝર આઈડી "</string>
     <string name="register_student_password">"પાસવર્ડ "</string>
-    <string name="register_btn_submit">"સબમિટ "</string>
     <string name="register_setError_rollno">"રોલ નં. આવશ્યક છે "</string>
     <string name="register_serError_sname">"વિદ્યાર્થીનું નામ આવશ્યક છે "</string>
     <string name="register_setError_address">"સરનામું આવશ્યક છે "</string>
@@ -85,7 +76,6 @@
     <string name="student_maintain_update">"અપડેટ કરો "</string>
     <string name="newwarden_title">"નવો વોર્ડન ઉમેરો "</string>
     <string name="newwarden_uid">"યુઝર આઈ ડી નાખો "</string>
-    <string name="newwarden_password">"પાસવર્ડ "</string>
     <string name="newwarden_submit">"સબમિટ કરો "</string>
     <string name="stu_report_print">"પ્રિન્ટ કરો "</string>
     <string name="stu_update_title">"વિદ્યાર્થી ની માહિતી સુધારો "</string>
