@@ -19,6 +19,7 @@
     <string name="login_userid_hint">User Id</string>
     <string name="login_password_hint">Password</string>
     <string name="login_button_text">Login</string>
+
     <!--login java toast-->
     <string name="login_toast_utype">Please Select User Type </string>
     <string name="login_toast_incorrect_credentials">Incorrect User ID Or Password</string>

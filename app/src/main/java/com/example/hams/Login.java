@@ -30,20 +30,23 @@ public class Login extends AppCompatActivity {
     private int userType = 0;
     private String utype = "";
     private ProgressDialog mProgress;
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
+    private SharedPreferences pref;//to retrive data from device
+    private SharedPreferences.Editor editor; //to store data from device
     boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
+
         flag = pref.getBoolean("login", false);
 
         if (flag == true) {
             intent = new Intent(getApplicationContext(), wardenHome.class);
+
             intent.putExtra("iUserName", pref.getString("username", ""));//edUsername.getText().toString());
             intent.putExtra("iPassword", pref.getString("password", ""));//,edPassword.getText().toString());
             intent.putExtra("iUtype", pref.getString("utype", ""));
