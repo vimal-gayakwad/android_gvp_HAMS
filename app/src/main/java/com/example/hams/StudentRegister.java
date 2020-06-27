@@ -44,7 +44,6 @@ public class StudentRegister extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-//this comment added now
         // control Variables
         sName = findViewById(R.id.edsName);
         Address = findViewById(R.id.edAddress);

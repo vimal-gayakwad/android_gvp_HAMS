@@ -45,7 +45,12 @@ public class Login extends AppCompatActivity {
         flag = pref.getBoolean("login", false);
 
         if (flag == true) {
-            intent = new Intent(getApplicationContext(), wardenHome.class);
+
+            if (pref.getString("utype", "").equals("student")) {
+                intent = new Intent(getApplicationContext(), studentHome.class);
+            } else if (pref.getString("utype", "").equals("warden")) {
+                intent = new Intent(getApplicationContext(), wardenHome.class);
+            }
 
             intent.putExtra("iUserName", pref.getString("username", ""));//edUsername.getText().toString());
             intent.putExtra("iPassword", pref.getString("password", ""));//,edPassword.getText().toString());
