@@ -1,9 +1,5 @@
 package com.example.hams;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,54 +7,33 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class wardenHome extends AppCompatActivity {
 
     private ImageView imgAtt, imgRep, imgMaintain, imgList, imgAcc, imgLog;
     private Intent intent;
-    Long lastRollNo = null;// to get last registered roll number
+    private Long lastRollNo = null;// to get last registered roll number
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String UserName;
-    private long RollNo;
     private String Password;
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warden_home);
 
-        imgAtt = (ImageView) findViewById(R.id.imgAttend);
-        imgRep = (ImageView) findViewById(R.id.imgReport);
-        imgList = (ImageView) findViewById(R.id.imgList);
-        imgLog = (ImageView) findViewById(R.id.imgLogout);
-        imgAcc = (ImageView) findViewById(R.id.imgAccount);
-        imgMaintain = (ImageView) findViewById(R.id.imgReg);
-
-
+        imgAtt = findViewById(R.id.imgAttend);
+        imgRep = findViewById(R.id.imgReport);
+        imgList = findViewById(R.id.imgList);
+        imgLog = findViewById(R.id.imgLogout);
+        imgAcc = findViewById(R.id.imgAccount);
+        imgMaintain = findViewById(R.id.imgReg);
         intent = getIntent();
         UserName = intent.getStringExtra("iUserName");
-        RollNo = intent.getLongExtra("iRollNo", 0);
         Password = intent.getStringExtra("iPassword");
-
-        db.collection("StudentLastRollNo").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        lastRollNo = document.getLong("lastRollNo");
-                    }
-                }
-            }
-        });
-        //redirect to attendance page
 
         imgAtt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +42,6 @@ public class wardenHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         // //redirect to report  page
         imgRep.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +65,6 @@ public class wardenHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         // //redirect to account manage page
         imgAcc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +75,6 @@ public class wardenHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         //  logout performed
         imgLog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,14 +83,11 @@ public class wardenHome extends AppCompatActivity {
                 builder.setTitle(getString(R.string.logout_title));
                 builder.setPositiveButton(getString(R.string.logout_positive), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                         SharedPreferences myPrefs = getSharedPreferences("MyPref",
                                 MODE_PRIVATE);
                         SharedPreferences.Editor editor = myPrefs.edit();
-
-                        editor.putBoolean("login",false);
-                        editor.commit();
-
+                        editor.putBoolean("login", false);
+                        editor.apply();
                         finish();
                         AppState.getSingleInstance().setLoggingOut(true);
                         Intent intent = new Intent(wardenHome.this,
@@ -135,17 +104,12 @@ public class wardenHome extends AppCompatActivity {
             }
         });
     }
-
-    //if user press back button after login it will not allowed to go back
-    //it will ask for exit directly
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getString(R.string.exit_title));
         builder.setPositiveButton(getString(R.string.exit_positive), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-
-
                 moveTaskToBack(true);
                 System.exit(1);
             }

@@ -1,21 +1,19 @@
 package com.example.hams;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,8 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login extends AppCompatActivity {
 
-    private EditText edUsername;
-    private EditText edPassword;
+    private EditText edUsername, edPassword;
     private Button btnLogin;
     private Spinner spinnerUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -37,46 +34,32 @@ public class Login extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     boolean flag = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new
-                    StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-
-
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
         flag = pref.getBoolean("login", false);
 
         if (flag == true) {
             intent = new Intent(getApplicationContext(), wardenHome.class);
-            intent.putExtra("iUserName", pref.getString("username",""));//edUsername.getText().toString());
-            intent.putExtra("iPassword", pref.getString("password",""));//,edPassword.getText().toString());
-            intent.putExtra("iUtype", pref.getString("utype",""));
-            intent.putExtra("iRollNo",pref.getLong("RollNo",0));
+            intent.putExtra("iUserName", pref.getString("username", ""));//edUsername.getText().toString());
+            intent.putExtra("iPassword", pref.getString("password", ""));//,edPassword.getText().toString());
+            intent.putExtra("iUtype", pref.getString("utype", ""));
+            intent.putExtra("iRollNo", pref.getLong("RollNo", 0));
             startActivity(intent);
         } else {
-
-            edUsername = (EditText) findViewById(R.id.edusername);
-            edPassword = (EditText) findViewById(R.id.edpassword);
-            btnLogin = (Button) findViewById(R.id.btnLogin);
-            spinnerUser = (Spinner) findViewById(R.id.spUsers);
-
-
+            edUsername = findViewById(R.id.edusername);
+            edPassword = findViewById(R.id.edpassword);
+            btnLogin = findViewById(R.id.btnLogin);
+            spinnerUser = findViewById(R.id.spUsers);
             //initilize progress dialog for login
             mProgress = new ProgressDialog(Login.this);
             mProgress.setTitle(getString(R.string.mprogress_title));
             mProgress.setMessage(getString(R.string.mprogress_msg));
             mProgress.setCancelable(false);
             mProgress.setIndeterminate(true);
-
-
             spinnerUser.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,10 +80,8 @@ public class Login extends AppCompatActivity {
                     // to check internet Connectivity
                     if (netCheck.checkConnection(getApplicationContext())) {
                         mProgress.show();
-
                         final String username = edUsername.getText().toString();
                         final String password = edPassword.getText().toString();
-
                         //check the number of spinnerUser value and set user type
                         if (userType == 0) {
                             Toast.makeText(Login.this, getString(R.string.login_toast_utype), Toast.LENGTH_SHORT).show();
@@ -115,7 +96,6 @@ public class Login extends AppCompatActivity {
                             utype = "student";
                             intent = new Intent(Login.this, studentHome.class);
                         }
-
                         if (TextUtils.isEmpty(edUsername.getText())) {
                             edUsername.setError(getString(R.string.login_setError_uname));
                             mProgress.dismiss();
@@ -123,7 +103,6 @@ public class Login extends AppCompatActivity {
                             edPassword.setError(getString(R.string.login_setError_password));
                             mProgress.dismiss();
                         }
-
                         ////get Value from database and Check The Value///////////////////////
                         else if (userType != 0) {
                             db.collection(utype).document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -131,7 +110,6 @@ public class Login extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot documentSnapshot = task.getResult();
-
                                         String Fusername = documentSnapshot.getString("username");//Firebase Username
                                         String Fpassword = documentSnapshot.getString("password");//Firebase Password
                                         if (username.equals(Fusername) && password.equals(Fpassword)) {
@@ -139,18 +117,16 @@ public class Login extends AppCompatActivity {
                                             String un = username,
                                                     ps = password,
                                                     ut = utype;
-
                                             if (userType == 2) {
-                                                Long rl = Long.parseLong((String) documentSnapshot.get("RollNo"));
+                                                long rl = Long.parseLong((String) documentSnapshot.get("RollNo"));
                                                 intent.putExtra("iRollNo", rl);
                                                 editor.putLong("RollNo", rl);
                                             }
                                             editor.putString("utype", ut);
                                             editor.putBoolean("login", true);
                                             editor.putString("password", ps);
-                                            editor.putString("username",un);
-                                            editor.commit();
-
+                                            editor.putString("username", un);
+                                            editor.apply();
                                             intent.putExtra("docId", documentSnapshot.getId());
                                             intent.putExtra("iUserName", un);//edUsername.getText().toString());
                                             intent.putExtra("iPassword", ps);//,edPassword.getText().toString());
@@ -167,10 +143,8 @@ public class Login extends AppCompatActivity {
                                 }
                             });
                         } else {
-
                             Toast.makeText(Login.this, getString(R.string.login_toast_utype), Toast.LENGTH_SHORT).show();
                             spinnerUser.setFocusable(true);
-
                         }
                     } else {
                         Toast.makeText(Login.this, getString(R.string.login_toast_offline), Toast.LENGTH_SHORT).show();
@@ -179,5 +153,4 @@ public class Login extends AppCompatActivity {
             });
         }
     }
-
 }

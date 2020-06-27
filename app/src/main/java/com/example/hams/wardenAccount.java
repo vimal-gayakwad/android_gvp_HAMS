@@ -1,8 +1,5 @@
 package com.example.hams;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,12 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class wardenAccount extends AppCompatActivity {
-    Button btnSubmit, btnNewAdmin;
-    EditText edOldPassword, edNewPassword, edConfirmPassword;
-    String dbPassword;
-    Intent intent;
-    private String uname;
-
+    private Button btnSubmit, btnNewAdmin;
+    private EditText edOldPassword, edNewPassword, edConfirmPassword;
+    private String uname, dbPassword;
+    private Intent intent;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Map<String, String> LoginData = new HashMap<>();
     private ProgressDialog mProgress;
@@ -35,24 +33,20 @@ public class wardenAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warden_account);
 
-        btnSubmit = (Button) findViewById(R.id.btnChangePasswd);
-        edNewPassword = (EditText) findViewById(R.id.edNewPassword);
-        edOldPassword = (EditText) findViewById(R.id.edOldPass2);
-        edConfirmPassword = (EditText) findViewById(R.id.edConfPassword);
-        btnNewAdmin = (Button) findViewById(R.id.btnAddNewWarden);
+        btnSubmit = findViewById(R.id.btnChangePasswd);
+        edNewPassword = findViewById(R.id.edNewPassword);
+        edOldPassword = findViewById(R.id.edOldPass2);
+        edConfirmPassword = findViewById(R.id.edConfPassword);
+        btnNewAdmin = findViewById(R.id.btnAddNewWarden);
         //initilize progress dialog for login
         mProgress = new ProgressDialog(wardenAccount.this);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
-
-
         intent = getIntent();
         dbPassword = intent.getStringExtra("iPassword1");
         uname = intent.getStringExtra("iUserName1");
-
-
         btnNewAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +56,6 @@ public class wardenAccount extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (TextUtils.isEmpty(edOldPassword.getText())) {
                     edOldPassword.setError("Enter Password");
                 }
@@ -88,13 +81,11 @@ public class wardenAccount extends AppCompatActivity {
                                     Toast.makeText(wardenAccount.this, "Updated Successfully \n Please Login with New Password", Toast.LENGTH_LONG).show();
                                     intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
-
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-
                                     Toast.makeText(wardenAccount.this, "Error " + e.getMessage(), Toast.LENGTH_LONG).show();
                                     mProgress.dismiss();
                                 }

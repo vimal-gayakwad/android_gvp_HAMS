@@ -2,24 +2,20 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
     android:layout_marginBottom="30dp"
     android:fillViewport="true"
     tools:context=".StudentRegister">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:orientation="vertical"
         tools:ignore="WebViewLayout">
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/curved">
-
             <TextView
                 android:id="@+id/txtTitleReport"
                 android:layout_width="match_parent"
@@ -28,26 +24,21 @@
                 android:text=""
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent2"
-                android:textSize="35dp" />
+                android:textSize="35sp" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
         <TextView
         android:id="@+id/txtMonth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#130E0E" />
-
     <WebView
         android:id="@+id/webViewReport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
     <WebView
         android:id="@+id/webviewAbs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/btnPrint"
         android:layout_width="match_parent"

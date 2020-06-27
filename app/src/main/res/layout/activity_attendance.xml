@@ -6,18 +6,15 @@
     android:layout_marginBottom="30dp"
     android:fillViewport="true"
     tools:context=".MaintainStudent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/curved">
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="61dp"
@@ -27,8 +24,6 @@
                 android:textColor="@color/colorAccent2"
                 android:textSize="35sp" />
         </com.google.android.material.textfield.TextInputLayout>
-
-
         <EditText
         android:id="@+id/edDate"
         android:layout_width="match_parent"
@@ -36,45 +31,37 @@
         android:clickable="true"
         android:focusable="false"
         android:inputType="date" />
-
     <RadioGroup
         android:id="@+id/prTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <RadioButton
             android:id="@+id/rdMorning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/attendance_check_morning" />
-
         <RadioButton
             android:id="@+id/rdEvening"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/attendance_check_evening" />
     </RadioGroup>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:orientation="horizontal">
-
         <TextView
-
             android:id="@+id/textView2"
             android:layout_width="56dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="@string/attendance_text_total" />
-
         <TextView
             android:id="@+id/txtTotal"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:text="" />
-
         <TextView
             android:id="@+id/text3"
             android:layout_width="21dp"
@@ -82,7 +69,6 @@
             android:layout_weight="1"
             android:text="@string/attendance_text_present"
             android:textColor="#4CAF50" />
-
         <TextView
             android:id="@+id/txtPresent"
             android:layout_width="wrap_content"
@@ -90,7 +76,6 @@
             android:layout_weight="1"
             android:text="--"
             android:textColor="#4CAF50" />
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="5dp"
@@ -98,7 +83,6 @@
             android:layout_weight="1"
             android:text="@string/attendance_text_absent"
             android:textColor="#F44336" />
-
         <TextView
             android:id="@+id/txtAbsent"
             android:layout_width="wrap_content"
@@ -106,27 +90,20 @@
             android:layout_weight="1"
             android:text="--"
             android:textColor="#F44336" />
-
     </LinearLayout>
-
     <ScrollView
         android:id="@+id/scrlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <GridLayout
             android:id="@+id/grd"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
     </ScrollView>
-
-
     <Button
         android:id="@+id/bt2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@drawable/radius"
         android:text="@string/attendance_btn_submit" />
 </LinearLayout>

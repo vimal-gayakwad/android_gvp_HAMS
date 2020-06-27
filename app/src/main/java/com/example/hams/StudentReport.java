@@ -2,20 +2,13 @@ package com.example.hams;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.print.PrintDocumentAdapter;
-import android.print.PrintManager;
-import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,31 +24,26 @@ import java.util.Map;
 public class StudentReport extends Activity {
     ///Variable Declaration
 
-    private TextView textView;
+    private TextView textView, months;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private List<String> list = new ArrayList<>();
-    private Map<String, String> map = new HashMap<>();
     private Map<String, String> ABSDate = new HashMap<>();
     private WebView webView, webViewReport;
     private String header = "", body = "", footer = "", reportData = "";
     private long roll = 0;
-    int totalM = 0, totalE = 0;
-    int totalTime = 0;
+    private int totalM = 0, totalE = 0, totalTime = 0;
     private Intent intent;
     private ProgressDialog mProgress;
     private Map<String, String> MonthList = new HashMap();
-    private TextView months;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_report);
-
         //Initilization
-        textView = (TextView) findViewById(R.id.txtTitleReport);
-        webView = (WebView) findViewById(R.id.webviewAbs);
-        webViewReport = (WebView) findViewById(R.id.webViewReport);
-        months = (TextView) findViewById(R.id.txtMonth);
+        textView = findViewById(R.id.txtTitleReport);
+        webView = findViewById(R.id.webviewAbs);
+        webViewReport = findViewById(R.id.webViewReport);
+        months = findViewById(R.id.txtMonth);
 
         mProgress = new ProgressDialog(StudentReport.this);
         mProgress.setTitle(getString(R.string.mprogress_title));
@@ -179,9 +167,7 @@ public class StudentReport extends Activity {
                             months.setText(getString(R.string.report_including) + MonthList.values());
                             webViewReport.loadData(reportData, "text/html; charset=utf-8", "UTF-8");
                             if (ABSDate.size() == 0) {
-
                             } else {
-
                                 webView.loadData(header + body + footer, "text/html; charset=utf-8", "UTF-8");
                                 mProgress.dismiss();
                             }
@@ -191,6 +177,4 @@ public class StudentReport extends Activity {
                     }
                 });
     }
-
-
 }

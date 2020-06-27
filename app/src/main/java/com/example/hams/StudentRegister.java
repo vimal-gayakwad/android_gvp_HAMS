@@ -1,8 +1,5 @@
 package com.example.hams;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -10,26 +7,25 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class StudentRegister extends AppCompatActivity {
@@ -41,7 +37,6 @@ public class StudentRegister extends AppCompatActivity {
     private String department;
     private Long LastRollNo;
     private ProgressDialog mProgress;
-    String[] arraySpinner = new String[]{"-select Department-", "AUDIO AND VISUAL", "ECONOMICS", "GUJARATI", "HISTORY", "M.C.A.", "M.S.W"};     //for users Spinner Control
     private DatePickerDialog.OnDateSetListener mDatesetListener;
     Calendar cal = Calendar.getInstance();
 
@@ -51,16 +46,16 @@ public class StudentRegister extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         // control Variables
-        sName = (EditText) findViewById(R.id.edsName);
-        Address = (EditText) findViewById(R.id.edAddress);
-        submit = (Button) findViewById(R.id.btnSubmit);
-        dept = (Spinner) findViewById(R.id.spDept);
-        birthdate = (EditText) findViewById(R.id.edBDate);
-        Contact = (EditText) findViewById(R.id.edContactNo);
-        Email = (EditText) findViewById(R.id.edEmail);
-        uname = (EditText) findViewById(R.id.edSUsername);
-        password = (EditText) findViewById(R.id.edSPassword);
-        RollNo = (EditText) findViewById(R.id.edRollNo);
+        sName = findViewById(R.id.edsName);
+        Address = findViewById(R.id.edAddress);
+        submit = findViewById(R.id.btnSubmit);
+        dept = findViewById(R.id.spDept);
+        birthdate = findViewById(R.id.edBDate);
+        Contact = findViewById(R.id.edContactNo);
+        Email = findViewById(R.id.edEmail);
+        uname = findViewById(R.id.edSUsername);
+        password = findViewById(R.id.edSPassword);
+        RollNo = findViewById(R.id.edRollNo);
 
         birthdate.setText("dd-mm-yyyy");
         mProgress = new ProgressDialog(StudentRegister.this);
@@ -91,13 +86,6 @@ public class StudentRegister extends AppCompatActivity {
                 birthdate.setText(dateString);
             }
         };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, arraySpinner);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dept.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
         db.collection("StudentLastRollNo").document("LastRollNo").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -141,7 +129,6 @@ public class StudentRegister extends AppCompatActivity {
                 }
                 if (dept.getSelectedItem().equals("-select Department-")) {
                     Toast.makeText(StudentRegister.this, getString(R.string.register_toast_select_dept), Toast.LENGTH_SHORT).show();
-                    ;
                 } else {
                     String sname = sName.getText().toString(),
                             rollNo = RollNo.getText().toString(),
@@ -153,7 +140,6 @@ public class StudentRegister extends AppCompatActivity {
                             passwd = password.getText().toString();
 
                     department = dept.getSelectedItem().toString();
-
                     // Add studentDetails to studentDetails Collecction
                     Map<String, Object> user = new HashMap<>();
                     user.put("StudentName", sname);
@@ -171,7 +157,6 @@ public class StudentRegister extends AppCompatActivity {
                     final Map<String, Object> AttData = new HashMap<>();
                     AttData.put("RollNo", rollNo);
                     AttData.put("username", Uname);
-
 // Add a new document with a generated ID
                     db.collection("StudentDetails").document(Uname)
                             .set(user)

@@ -1,8 +1,5 @@
 package com.example.hams;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,21 +7,20 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -33,7 +29,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class updateStudent extends AppCompatActivity {
@@ -43,34 +38,29 @@ public class updateStudent extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Spinner dept;
     private String department;
-    private Long LastRollNo;
-    private String[] arraySpinner = new String[]{"-select Department-", "AUDIO AND VISUAL", "ECONOMICS", "GUJARATI", "HISTORY", "M.C.A.", "M.S.W"};     //for users Spinner Control
+    private Long LastRollNo, iRoll;
     private DatePickerDialog.OnDateSetListener mDatesetListener;
     private Calendar cal = Calendar.getInstance();
-    private Long iRoll;
     private Intent intent;
     private ProgressDialog mProgress;
-    Map<String, String> map = new HashMap<>();
+    private Map<String, String> map = new HashMap<>();
 
     //progress Dialog for login process
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_student);
-
         // control Variables
-
-        sName = (EditText) findViewById(R.id.edsNameUP);
-        Address = (EditText) findViewById(R.id.edAddressUP);
-        submit = (Button) findViewById(R.id.btnSubmitUP);
-        dept = (Spinner) findViewById(R.id.spDeptUP);
-        birthdate = (EditText) findViewById(R.id.edBDateUP);
-        Contact = (EditText) findViewById(R.id.edContactNoUP);
-        Email = (EditText) findViewById(R.id.edEmailUP);
-        uname = (EditText) findViewById(R.id.edSUsernameUP);
-        password = (EditText) findViewById(R.id.edSPasswordUP);
-        RollNo = (EditText) findViewById(R.id.edRollNoUP1);
-
+        sName = findViewById(R.id.edsNameUP);
+        Address = findViewById(R.id.edAddressUP);
+        submit = findViewById(R.id.btnSubmitUP);
+        dept = findViewById(R.id.spDeptUP);
+        birthdate = findViewById(R.id.edBDateUP);
+        Contact = findViewById(R.id.edContactNoUP);
+        Email = findViewById(R.id.edEmailUP);
+        uname = findViewById(R.id.edSUsernameUP);
+        password = findViewById(R.id.edSPasswordUP);
+        RollNo = findViewById(R.id.edRollNoUP1);
 
         mProgress = new ProgressDialog(updateStudent.this);
         mProgress.setTitle("Processing...");
@@ -89,7 +79,6 @@ public class updateStudent extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-
                                 if (Long.valueOf(document.getString("RollNo")).equals(iRoll)) { //&& document.getId().contains("morning") && document.getString("" + rollno.get(i)).contains("a")) {
                                     map.put("sname", document.getString("StudentName"));
                                     map.put("Address", document.getString("Address"));
@@ -102,22 +91,18 @@ public class updateStudent extends AppCompatActivity {
                                     mProgress.dismiss();
                                     break;
                                 }
-
                             }
                         } else {
-
                             mProgress.dismiss();
                         }
-
-                        sName.setText( map.get("sname"));
-                        RollNo.setText( map.get("RollNo"));
-                        Address.setText(  map.get("Address"));
+                        sName.setText(map.get("sname"));
+                        RollNo.setText(map.get("RollNo"));
+                        Address.setText(map.get("Address"));
                         dept.setSelection(0);
                         Contact.setText(map.get("Contact"));
                         Email.setText(map.get("Email"));
                         birthdate.setText(map.get("Birthdate"));
                         uname.setText(map.get("uid"));
-
                     }
                 });
         birthdate.setOnClickListener(new View.OnClickListener() {
@@ -140,14 +125,6 @@ public class updateStudent extends AppCompatActivity {
                 birthdate.setText(dateString);
             }
         };
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, arraySpinner);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dept.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
         db.collection("StudentLastRollNo").document("LastRollNo").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -160,8 +137,6 @@ public class updateStudent extends AppCompatActivity {
                 }
             }
         });
-
-
         // todo UPLOAD DATA TO FIREBASE
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,7 +168,6 @@ public class updateStudent extends AppCompatActivity {
                 }
                 if (dept.getSelectedItem().equals("-select Department-")) {
                     Toast.makeText(getApplicationContext(), "Select Department", Toast.LENGTH_SHORT).show();
-                    ;
                 } else {
                     mProgress.show();
                     String sname = sName.getText().toString(),
@@ -204,9 +178,7 @@ public class updateStudent extends AppCompatActivity {
                             email = Email.getText().toString(),
                             Uname = uname.getText().toString(),
                             passwd = password.getText().toString();
-
                     department = dept.getSelectedItem().toString();
-
                     // Add studentDetails to studentDetails Collecction
                     Map<String, Object> user = new HashMap<>();
                     user.put("StudentName", sname);
@@ -225,19 +197,12 @@ public class updateStudent extends AppCompatActivity {
                     AttData.put("RollNo", rollNo);
                     AttData.put("username", Uname);
 
-
-///get last added rollnumber
-
-
-// Add a new document with a generated ID
-
                     db.collection("StudentDetails").document(Uname)
                             .update(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(getApplicationContext(), "Updated Successfully", Toast.LENGTH_LONG).show();
-
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {

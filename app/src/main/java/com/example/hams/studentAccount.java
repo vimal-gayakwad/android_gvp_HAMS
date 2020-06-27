@@ -1,8 +1,5 @@
 package com.example.hams;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class studentAccount extends AppCompatActivity {
-    Button btnSubmit;
-    EditText edOldPassword, edNewPassword, edConfirmPassword;
-    String dbPassword;
-    Intent intent;
+    private Button btnSubmit;
+    private EditText edOldPassword, edNewPassword, edConfirmPassword;
+    private String dbPassword;
+    private Intent intent;
     private String uname;
     private ProgressDialog mProgress;
 
@@ -35,18 +35,16 @@ public class studentAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_account);
 
-        btnSubmit = (Button) findViewById(R.id.btnChangePasswd1);
-        edNewPassword = (EditText) findViewById(R.id.edNewPassword1);
-        edOldPassword = (EditText) findViewById(R.id.edOldPassword1);
-        edConfirmPassword = (EditText) findViewById(R.id.edConfPassword1);
-
+        btnSubmit = findViewById(R.id.btnChangePasswd1);
+        edNewPassword = findViewById(R.id.edNewPassword1);
+        edOldPassword = findViewById(R.id.edOldPassword1);
+        edConfirmPassword = findViewById(R.id.edConfPassword1);
 
         mProgress = new ProgressDialog(studentAccount.this);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
-
         intent = getIntent();
 
         dbPassword = intent.getStringExtra("iPassword1");
@@ -87,7 +85,6 @@ public class studentAccount extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
                                     mProgress.dismiss();
                                     Toast.makeText(studentAccount.this, "Error " + e.getMessage(), Toast.LENGTH_LONG).show();
-
                                 }
                             });
                 }

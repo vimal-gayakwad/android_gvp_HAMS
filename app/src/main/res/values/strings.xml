@@ -12,9 +12,6 @@
     <string name="mprogress_title">Processing...</string>
     <string name="mprogress_msg">Please Wait</string>
     <string name="report_including">Including</string>
-
-
-
     <!--for Login and title xml-->
     <string name="app_name" translatable="false">HAMS</string>
     <string name="login_spinner_textview">Select User Type</string>
@@ -38,7 +35,6 @@
     <string name="warden_home_list">List</string>
     <string name="warden_home_account">Account</string>
     <string name="warden_home_logout">Logout</string>
-
     <!--for for attendance page xml-->
     <string name="attendance_title">Attendance</string>
     <string name="attendance_check_morning">Morning</string>
@@ -50,8 +46,6 @@
     <!--for attendance java Toast -->
     <string name="attendance_toast_added_sucsess">Attendance Added Successfully</string>
     <string name="attendance_toast_added_failed">Error While Adding</string>
-    <!--for report java toast-->
-
     <!--for register xml-->
     <string name="regiter_title">Register Student</string>
     <string name="register_hint_rollno">Roll No</string>
@@ -63,7 +57,6 @@
     <string name="register_student_uid">Student User ID</string>
     <string name="register_student_password">Password</string>
     <string name="register_register">Register</string>
-
     <!--for register java setError-->
     <string name="register_setError_rollno">RollNo Required</string>
     <string name="register_serError_sname">Student Name Required</string>
@@ -73,12 +66,10 @@
     <string name="register_setError_email">Email Required</string>
     <string name="register_setError_uname">User ID Required</string>
     <string name="register_setError_password">Password Required</string>
-
     <!--for register java toast-->
     <string name="register_toast_select_dept">Select Department</string>
     <string name="register_toast_added_sucessfully">Added Successfully</string>
     <string name="register_toast_added_failed">Error While Adding</string>
-
     <!--for student report xml-->
     <string name="student_report_title">Report</string>
     <!--student report java toast-->
@@ -93,7 +84,6 @@
     <string name="html_overall">Overall</string>
     <string name="html_total_working_time">Number of Prayer Time</string>
     <string name="html_percentage">Percentage</string>
-
     <string name="html_rollno">RollNo</string>
     <string name="student_report">Student Report</string>
     <!--student maintain-->
@@ -102,12 +92,10 @@
     <string name="student_maintain_register">Register</string>
     <string name="student_maintain_delete">Delete</string>
     <string name="student_maintain_update">Update</string>
-
     <!--new warden-->
     <string name="newwarden_title">Add New Warden</string>
     <string name="newwarden_uid">Enter User ID</string>
     <string name="newwarden_submit">Submit</string>
-
     <!--student report-->
     <string name="stu_report_print">Print</string>
     <!--student detials update-->
@@ -118,19 +106,27 @@
     <string name="stu_ac_new_password">Enter New Password</string>
     <string name="stu_ac_confirm_password">Confirm Password</string>
     <string name="stu_update">Update</string>
-
     <!--warden account-->
     <string name="warden_ac_title">Account Manager</string>
     <string name="warden_ac_cur_password">Enter Current Password</string>
     <string name="warden_ac_new_password">Enter New Password</string>
     <string name="warden_ac_cofirm_password">Confirm Password</string>
     <string name="warden_ac_add_new_warden">Add New Warden</string>
-
-    <!--for month name-->
-
+    <string name="enter_password">Enter Password</string>
+    <string name="suhbmiy">Submit</string>
     <string-array name="userstype">
         <item>Choose..</item>
         <item>warden</item>
         <item>student</item>
+    </string-array>
+    <!--string array dept-->
+    <string-array name="dept">
+        <item>-select Department-</item>
+        <item>AUDIO AND VISUAL</item>
+        <item>ECONOMICS</item>
+        <item>GUJARATI</item>
+        <item>HISTORY</item>
+        <item>M.C.A.</item>
+        <item>M.S.W</item>
     </string-array>
 </resources>

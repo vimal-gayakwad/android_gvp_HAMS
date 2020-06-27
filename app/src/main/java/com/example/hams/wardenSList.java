@@ -23,13 +23,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 public class wardenSList extends Activity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<Long> rollno = new ArrayList<Long>();
-    private Map<String,String> MonthList = new HashMap();
     private WebView webView;
     private String header = "", body = "", footer = "";
     private TextView title;
@@ -41,9 +38,9 @@ public class wardenSList extends Activity {
         setContentView(R.layout.activity_student_report);
 
         //Initilization
-        title=(TextView)findViewById(R.id.txtTitleReport);
-        printPDF1=(Button)findViewById(R.id.btnPrint);
-        webView = (WebView) findViewById(R.id.webviewAbs);
+        title = findViewById(R.id.txtTitleReport);
+        printPDF1 = findViewById(R.id.btnPrint);
+        webView = findViewById(R.id.webviewAbs);
         webView.getSettings().setBuiltInZoomControls(true);
         //initilize progress dialog
         mProgress = new ProgressDialog(wardenSList.this);
@@ -68,7 +65,6 @@ public class wardenSList extends Activity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 count++;
                                 rollno.add(Long.valueOf(document.getId()));
-                               // Toast.makeText(wardenSList.this, ""+document.getId(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         Collections.sort(rollno);
@@ -78,10 +74,8 @@ public class wardenSList extends Activity {
                                     @Override
                                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                         if (task.isSuccessful()) {
-                                            String studentName="",address="",email="",contact="",dept="";
                                             long RollNo=1;
                                                     String Sname="",Address="",Contact="",Email="",Department="";
-
                                             int i;
                                             for ( i = 0; i < rollno.size(); i++) {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -110,7 +104,6 @@ public class wardenSList extends Activity {
                 String jobName=getString(R.string.app_name)+"Document";
                 PrintDocumentAdapter printDocumentAdapter=webView.createPrintDocumentAdapter(jobName);
                 PrintJob printJob=printManager.print(jobName,printDocumentAdapter,new PrintAttributes.Builder().build());
-
             }
         });
     }

@@ -2,7 +2,6 @@ package com.example.hams;
 
 public class AppState {
     private static AppState singleInstance;
-
     private boolean isLoggingOut;
 
     private AppState() {

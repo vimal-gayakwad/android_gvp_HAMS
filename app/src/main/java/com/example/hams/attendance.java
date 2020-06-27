@@ -13,7 +13,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,28 +46,19 @@ public class attendance extends AppCompatActivity {
     private TextView txtPresent, txtAbsent, txtTotal;
     private EditText edDate;
     private Button submit;
-    private String present;
-    private String attTime;// attendance time
-    private int currentTime;
+    private String present, attTime;
     private GridLayout gridview;
-    Locale locale = Locale.US;
-
     ////////////////////////
-    ArrayList<String> keyList;
-    HashMap<String, String> meMap = new HashMap<String, String>();
-    Map<String, Object> user = new HashMap<>();
+    private ArrayList<String> keyList;
+    private HashMap<String, String> meMap = new HashMap<String, String>();
+    private Map<String, Object> user = new HashMap<>();
     ///////////////////////////////////////////////
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressDialog mProgress;
-    private RadioGroup radioGroup;
     private RadioButton rdMorning, rdEvening;
     final Calendar myCalendar = Calendar.getInstance();
+
     /////////////////////////////////////////////////
-
-
-
-
-    ///////////////////////////////////////
     private void updateLabel() {
         String myFormat = "dd-MMM-yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -81,15 +71,14 @@ public class attendance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_attendance);
 
-        txtPresent = (TextView) findViewById(R.id.txtPresent);
-        txtAbsent = (TextView) findViewById(R.id.txtAbsent);
-        txtTotal = (TextView) findViewById(R.id.txtTotal);
-        submit = (Button) findViewById(R.id.bt2);
-        edDate = (EditText) findViewById(R.id.edDate);
-        radioGroup = (RadioGroup) findViewById(R.id.prTime);
-        rdEvening = (RadioButton) findViewById(R.id.rdEvening);
-        rdMorning = (RadioButton) findViewById(R.id.rdMorning);
-        gridview = (GridLayout) findViewById(R.id.grd);
+        txtPresent = findViewById(R.id.txtPresent);
+        txtAbsent = findViewById(R.id.txtAbsent);
+        txtTotal = findViewById(R.id.txtTotal);
+        submit = findViewById(R.id.bt2);
+        edDate = findViewById(R.id.edDate);
+        rdEvening = findViewById(R.id.rdEvening);
+        rdMorning = findViewById(R.id.rdMorning);
+        gridview = findViewById(R.id.grd);
         gridview.setColumnCount(getColumn());
         mProgress = new ProgressDialog(attendance.this);
         mProgress.setTitle("Processing...");
@@ -103,7 +92,6 @@ public class attendance extends AppCompatActivity {
         configuration.setLocale(locale);
         configuration.setLayoutDirection(locale);
         getApplicationContext().createConfigurationContext(configuration);
-
         ///initialize datepicker dialog
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -115,31 +103,17 @@ public class attendance extends AppCompatActivity {
                 updateLabel();
             }
         };
-
-
-
         //////////////////////////////////////////////////////////
         Date c = Calendar.getInstance().getTime();
-        currentTime = Calendar.HOUR_OF_DAY;
-
-        if (currentTime <= 12) {
             rdMorning.setChecked(true);
-        } else {
-            rdEvening.setChecked(true);
-        }
-
         //////////////////////////////////
         SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
         String formattedDate = df.format(c);
         edDate.setText(formattedDate);
-        ////////////////////////////////////////
-
-        submit.setText("Submit");
-        /////////////////////////////////////////////////
+        submit.setText(R.string.attendance_btn_submit);
         edDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new DatePickerDialog(attendance.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
@@ -152,7 +126,6 @@ public class attendance extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 String name = (String) document.get("Name");
@@ -173,12 +146,10 @@ public class attendance extends AppCompatActivity {
                             mProgress.dismiss();
                             Toast.makeText(attendance.this, "" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
-
                         txtTotal.setText(valueOf(numberOfStudents));
                     }
                 });
 /////////////////////////////////////////////////////////////
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,26 +172,20 @@ public class attendance extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private int getColumn() {
         int num = 0;
         int height, width;
-
         width = Resources.getSystem().getDisplayMetrics().widthPixels;
-
         if (width >= 1280) {
-            num = (int) Math.round(width / 240);
+            num = Math.round(width / 240);
         } else if (width >= 340 && width <= 780) {
-            num = (int) Math.round(width / 120);
+            num = Math.round(width / 120);
         } else if (width > 780 && width < 1280) {
-            num = (int) Math.round(width / 180);
+            num = Math.round(width / 180);
         }
-
         return num;
-
     }
 
     private void saveInfo() {
@@ -261,9 +226,7 @@ public class attendance extends AppCompatActivity {
 
     /////////perform operation on checkboxStateChangedListner
     private void operation() {
-        int prs;
-        int ab;
-        int abs = numberOfStudents;
+        int prs, ab, abs = numberOfStudents;
         prs = meMap.size();
         ab = (abs - prs);
         txtAbsent.setText(valueOf(ab));
