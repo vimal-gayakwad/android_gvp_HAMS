@@ -33,7 +33,7 @@ public class StudentRegister extends AppCompatActivity {
     private EditText sName, Address, Email, Contact, uname, password, birthdate, RollNo;
     private Button submit;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Spinner dept;
+    private Spinner dept, semeter;
     private String department;
     private Long LastRollNo;
     private ProgressDialog mProgress;
@@ -55,6 +55,7 @@ public class StudentRegister extends AppCompatActivity {
         uname = findViewById(R.id.edSUsername);
         password = findViewById(R.id.edSPassword);
         RollNo = findViewById(R.id.edRollNo);
+        semeter = findViewById(R.id.spSem);
 
         birthdate.setText("dd-mm-yyyy");
         mProgress = new ProgressDialog(StudentRegister.this);
@@ -62,7 +63,7 @@ public class StudentRegister extends AppCompatActivity {
         mProgress.setMessage("Please wait...");
         mProgress.setCancelable(false);
         mProgress.setIndeterminate(true);
-
+        mProgress.show();
         birthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +94,9 @@ public class StudentRegister extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     LastRollNo = documentSnapshot.getLong("RollNo");
                     RollNo.setText("" + LastRollNo);
+                    mProgress.dismiss();
                 } else {
+                    mProgress.dismiss();
                     Toast.makeText(StudentRegister.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -126,9 +129,13 @@ public class StudentRegister extends AppCompatActivity {
                 if (TextUtils.isEmpty(password.getText())) {
                     password.setError(getString(R.string.register_setError_password));
                 }
-                if (dept.getSelectedItem().equals("-select Department-")) {
+                if (dept.getSelectedItem().equals("Choose")) {
                     Toast.makeText(StudentRegister.this, getString(R.string.register_toast_select_dept), Toast.LENGTH_SHORT).show();
+                }
+                if (semeter.getSelectedItem().equals("Choose")) {
+                    Toast.makeText(StudentRegister.this, "", Toast.LENGTH_SHORT).show();
                 } else {
+                    mProgress.show();
                     String sname = sName.getText().toString(),
                             rollNo = RollNo.getText().toString(),
                             address = Address.getText().toString(),
@@ -136,7 +143,8 @@ public class StudentRegister extends AppCompatActivity {
                             cont = Contact.getText().toString(),
                             email = Email.getText().toString(),
                             Uname = uname.getText().toString(),
-                            passwd = password.getText().toString();
+                            passwd = password.getText().toString(),
+                            semestersp = semeter.getSelectedItem().toString();
 
                     department = dept.getSelectedItem().toString();
                     // Add studentDetails to studentDetails Collecction
@@ -148,6 +156,7 @@ public class StudentRegister extends AppCompatActivity {
                     user.put("Contact", cont);
                     user.put("Email", email);
                     user.put("RollNo", rollNo);
+                    user.put("Semester", semestersp);
                     //Add Stdunet UserName And Password to student Table
                     final Map<String, Object> LoginData = new HashMap<>();
                     LoginData.put("RollNo", rollNo);
@@ -165,12 +174,14 @@ public class StudentRegister extends AppCompatActivity {
                                     final Map<String, Long> LRollNo = new HashMap<>();
                                     LRollNo.put("RollNo", LastRollNo + 1);
                                     db.collection("StudentLastRollNo").document("LastRollNo").set(LRollNo);
+                                    mProgress.dismiss();
                                     Toast.makeText(StudentRegister.this, getString(R.string.register_toast_added_sucessfully), Toast.LENGTH_LONG).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
+                                    mProgress.dismiss();
                                     Toast.makeText(StudentRegister.this, getString(R.string.register_toast_added_failed) + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -179,14 +190,15 @@ public class StudentRegister extends AppCompatActivity {
                     db.collection("attendanceList").document(rollNo).set(AttData);
 
                     //Update Roll Number After SuccessFully Added
+                    int rlno = Integer.valueOf(RollNo.getText().toString());
                     sName.setText("");
                     Address.setText("");
                     birthdate.setText("dd-mm-yyyy");
                     Contact.setText("");
                     Email.setText("");
-                    uname.setText("");
+                    //uname.setText("");
                     password.setText("");
-                    RollNo.setText("");
+                    RollNo.setText((rlno + 1));
                 }
             }
         });

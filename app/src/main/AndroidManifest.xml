@@ -27,8 +27,9 @@
         <activity android:name=".studentHome" />
         <activity android:name=".wardenHome" />
         <activity android:name=".UploadImage" />
-        <activity android:name=".Login" />
-        <activity android:name=".DisplayActivity">
+        <activity android:name=".DisplayActivity" />
+        <activity android:name=".Login">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

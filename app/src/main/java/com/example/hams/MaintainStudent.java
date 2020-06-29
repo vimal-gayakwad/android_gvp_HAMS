@@ -21,7 +21,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class MaintainStudent extends AppCompatActivity {
-    private Button reg, update, del;
+    private Button reg, update, del, newSem;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Intent intent;
     private EditText rollnum;
@@ -35,7 +35,7 @@ public class MaintainStudent extends AppCompatActivity {
         update = findViewById(R.id.btnStuUpdate);
         del = findViewById(R.id.btnstuDel);
         rollnum = findViewById(R.id.edRollNoToMaintain);
-
+        newSem = findViewById(R.id.btnstuPromot);
         mProgress = new ProgressDialog(MaintainStudent.this);
         mProgress.setTitle("Processing...");
         mProgress.setMessage("Please wait...");
@@ -66,10 +66,9 @@ public class MaintainStudent extends AppCompatActivity {
                     rollnum.setError("Roll No Must Required");
                 } else if ((!TextUtils.isEmpty(rollnum.getText()))) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MaintainStudent.this);
-                    builder.setTitle(getString(R.string.exit_title));
+                    builder.setTitle(getString(R.string.student_maintain_delete));
                     builder.setPositiveButton(getString(R.string.exit_positive), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            mProgress.show();
                             db.collection("StudentDetails")
                                     .get()
                                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -78,6 +77,7 @@ public class MaintainStudent extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                                     if (document.getString("RollNo").contains("" + rollnum.getText().toString())) {
+                                                        mProgress.show();
                                                         Toast.makeText(MaintainStudent.this, "" + document.getId(), Toast.LENGTH_SHORT).show();
                                                         db.collection("StudentDetails").document(document.getId()).delete();
                                                         db.collection("student").document(document.getId()).delete();
@@ -105,6 +105,36 @@ public class MaintainStudent extends AppCompatActivity {
                 }
             }
 
+        });
+        newSem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("StudentDetails")
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if (document.getString("RollNo").contains("" + rollnum.getText().toString())) {
+                                            mProgress.show();
+                                            Toast.makeText(MaintainStudent.this, "" + document.getId(), Toast.LENGTH_SHORT).show();
+                                            db.collection("StudentDetails").document(document.getId()).delete();
+                                            db.collection("student").document(document.getId()).delete();
+                                            Toast.makeText(MaintainStudent.this, "Student Details Deleted", Toast.LENGTH_SHORT).show();
+                                            mProgress.dismiss();
+                                        } else {
+                                            Toast.makeText(MaintainStudent.this, "No Student Found", Toast.LENGTH_SHORT).show();
+                                            mProgress.dismiss();
+                                        }
+                                    }
+                                } else {
+                                    Toast.makeText(MaintainStudent.this, "No Record Found", Toast.LENGTH_SHORT).show();
+                                    mProgress.dismiss();
+                                }
+                            }
+                        });
+            }
         });
     }
 }

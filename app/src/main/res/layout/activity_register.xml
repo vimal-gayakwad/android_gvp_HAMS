@@ -38,6 +38,8 @@
                 android:id="@+id/spDept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:outlineAmbientShadowColor="@color/cardview_dark_background"
+                android:paddingVertical="20dp"
                 android:entries="@array/dept" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,8 +50,11 @@
 
             <Spinner
                 android:id="@+id/spSem"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:entries="@array/semester"
+                android:outlineAmbientShadowColor="@color/cardview_dark_background"
+                android:paddingVertical="20dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

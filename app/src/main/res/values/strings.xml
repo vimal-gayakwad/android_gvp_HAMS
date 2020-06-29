@@ -71,6 +71,7 @@
     <string name="register_toast_select_dept">Select Department</string>
     <string name="register_toast_added_sucessfully">Added Successfully</string>
     <string name="register_toast_added_failed">Error While Adding</string>
+    <string name="register_toast_select_sem">Select Semester</string>
     <!--for student report xml-->
     <string name="student_report_title">Report</string>
     <!--student report java toast-->
@@ -88,11 +89,12 @@
     <string name="html_rollno">RollNo</string>
     <string name="student_report">Student Report</string>
     <!--student maintain-->
-    <string name="student_maintain_title">Student Detials Maintain</string>
+    <string name="student_maintain_title">Student Details Maintain</string>
     <string name="student_maintain_rollno">Roll No</string>
     <string name="student_maintain_register">Register</string>
     <string name="student_maintain_delete">Delete</string>
     <string name="student_maintain_update">Update</string>
+    <string name="student_maintain_promot">Start New Semester</string>
     <!--new warden-->
     <string name="newwarden_title">Add New Warden</string>
     <string name="newwarden_uid">Enter User ID</string>
@@ -122,12 +124,21 @@
     </string-array>
     <!--string array dept-->
     <string-array name="dept">
-        <item>-select Department-</item>
+        <item>Choose</item>
         <item>AUDIO AND VISUAL</item>
         <item>ECONOMICS</item>
         <item>GUJARATI</item>
         <item>HISTORY</item>
         <item>M.C.A.</item>
         <item>M.S.W</item>
+    </string-array>
+    <string-array name="semester">
+        <item>Choose</item>
+        <item>SEM 1</item>
+        <item>SEM 2</item>
+        <item>SEM 3</item>
+        <item>SEM 4</item>
+        <item>SEM 5</item>
+        <item>SEM 6</item>
     </string-array>
 </resources>
