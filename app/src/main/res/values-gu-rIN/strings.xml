@@ -92,5 +92,5 @@
     <string name="enter_password">Enter Password</string>
     <string name="suhbmiy">Submit</string>
     <string name="register_toast_select_sem">"સત્ર ની પસંદગી કરો "</string>
-    <string name="student_maintain_promot">"નવું સત્ર ચાલુ કરો "</string>
+    <string name="student_maintain_reset">" સત્ર રીસેટ કરો  "</string>
 </resources>

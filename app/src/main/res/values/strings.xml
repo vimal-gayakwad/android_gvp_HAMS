@@ -94,7 +94,7 @@
     <string name="student_maintain_register">Register</string>
     <string name="student_maintain_delete">Delete</string>
     <string name="student_maintain_update">Update</string>
-    <string name="student_maintain_promot">Start New Semester</string>
+    <string name="student_maintain_reset">Reset Semester</string>
     <!--new warden-->
     <string name="newwarden_title">Add New Warden</string>
     <string name="newwarden_uid">Enter User ID</string>

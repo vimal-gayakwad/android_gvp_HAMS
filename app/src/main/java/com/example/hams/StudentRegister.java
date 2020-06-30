@@ -16,11 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -35,7 +32,6 @@ public class StudentRegister extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Spinner dept, semeter;
     private String department;
-    private Long LastRollNo;
     private ProgressDialog mProgress;
     private DatePickerDialog.OnDateSetListener mDatesetListener;
     Calendar cal = Calendar.getInstance();
@@ -87,20 +83,20 @@ public class StudentRegister extends AppCompatActivity {
             }
         };
 
-        db.collection("StudentLastRollNo").document("LastRollNo").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    LastRollNo = documentSnapshot.getLong("RollNo");
-                    RollNo.setText("" + LastRollNo);
-                    mProgress.dismiss();
-                } else {
-                    mProgress.dismiss();
-                    Toast.makeText(StudentRegister.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        db.collection("StudentLastRollNo").document("LastRollNo").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot documentSnapshot = task.getResult();
+//                    LastRollNo = documentSnapshot.getLong("RollNo");
+//                    RollNo.setText("" + LastRollNo);
+//                    mProgress.dismiss();
+//                } else {
+//                    mProgress.dismiss();
+//                    Toast.makeText(StudentRegister.this, "Error", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,7 +143,7 @@ public class StudentRegister extends AppCompatActivity {
                             semestersp = semeter.getSelectedItem().toString();
 
                     department = dept.getSelectedItem().toString();
-                    // Add studentDetails to studentDetails Collecction
+                    // Add studentDetails to studentDetails Collection
                     Map<String, Object> user = new HashMap<>();
                     user.put("StudentName", sname);
                     user.put("Address", address);
@@ -165,15 +161,18 @@ public class StudentRegister extends AppCompatActivity {
                     final Map<String, Object> AttData = new HashMap<>();
                     AttData.put("RollNo", rollNo);
                     AttData.put("username", Uname);
-// Add a new document with a generated ID
+                    // Add a new document with a generated ID
                     db.collection("StudentDetails").document(Uname)
                             .set(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    final Map<String, Long> LRollNo = new HashMap<>();
-                                    LRollNo.put("RollNo", LastRollNo + 1);
-                                    db.collection("StudentLastRollNo").document("LastRollNo").set(LRollNo);
+                                    //final Map<String, Long> LRollNo = new HashMap<>();
+                                    //LRollNo.put("RollNo", LastRollNo + 1);
+                                    //db.collection("StudentLastRollNo").document("LastRollNo").set(LRollNo);
+                                    db.collection("student").document(uname.getText().toString()).set(LoginData);
+                                    db.collection("attendanceList").document(RollNo.getText().toString()).set(AttData);
+
                                     mProgress.dismiss();
                                     Toast.makeText(StudentRegister.this, getString(R.string.register_toast_added_sucessfully), Toast.LENGTH_LONG).show();
                                 }
@@ -185,20 +184,14 @@ public class StudentRegister extends AppCompatActivity {
                                     Toast.makeText(StudentRegister.this, getString(R.string.register_toast_added_failed) + e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
-
-                    db.collection("student").document(uname.getText().toString()).set(LoginData);
-                    db.collection("attendanceList").document(rollNo).set(AttData);
-
-                    //Update Roll Number After SuccessFully Added
-                    int rlno = Integer.valueOf(RollNo.getText().toString());
                     sName.setText("");
                     Address.setText("");
                     birthdate.setText("dd-mm-yyyy");
                     Contact.setText("");
                     Email.setText("");
-                    //uname.setText("");
+                    uname.setText("");
                     password.setText("");
-                    RollNo.setText((rlno + 1));
+                    RollNo.setText((""));
                 }
             }
         });

@@ -118,10 +118,7 @@ public class MaintainStudent extends AppCompatActivity {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
                                         if (document.getString("RollNo").contains("" + rollnum.getText().toString())) {
                                             mProgress.show();
-                                            Toast.makeText(MaintainStudent.this, "" + document.getId(), Toast.LENGTH_SHORT).show();
-                                            db.collection("StudentDetails").document(document.getId()).delete();
-                                            db.collection("student").document(document.getId()).delete();
-                                            Toast.makeText(MaintainStudent.this, "Student Details Deleted", Toast.LENGTH_SHORT).show();
+
                                             mProgress.dismiss();
                                         } else {
                                             Toast.makeText(MaintainStudent.this, "No Student Found", Toast.LENGTH_SHORT).show();
