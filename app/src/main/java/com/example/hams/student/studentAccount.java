@@ -1,4 +1,4 @@
-package com.example.hams;
+package com.example.hams.student;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hams.R;
+import com.example.hams.general.AppState;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -76,7 +78,7 @@ public class studentAccount extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     mProgress.dismiss();
                                     Toast.makeText(studentAccount.this, "Updated Successfully \n Please Login with New Password", Toast.LENGTH_LONG).show();
-                                    intent = new Intent(getApplicationContext(), Login.class);
+                                    intent = new Intent(getApplicationContext(), AppState.Login.class);
                                     startActivity(intent);
                                 }
                             })

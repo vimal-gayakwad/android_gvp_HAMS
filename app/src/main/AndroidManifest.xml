@@ -14,21 +14,21 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".NewWarden" />
-        <activity android:name=".MaintainStudent" />
-        <activity android:name=".updateStudent" />
-        <activity android:name=".studentAccount" />
-        <activity android:name=".StudentReport" />
-        <activity android:name=".StudentRegister" />
-        <activity android:name=".wardenAccount" />
-        <activity android:name=".wardenSList" />
-        <activity android:name=".wardenReport" />
-        <activity android:name=".attendance" />
-        <activity android:name=".studentHome" />
-        <activity android:name=".wardenHome" />
-        <activity android:name=".UploadImage" />
-        <activity android:name=".DisplayActivity" />
-        <activity android:name=".Login" />
+        <activity android:name=".warden.wardenHome$NewWarden" />
+        <activity android:name=".warden.wardenHome$MaintainStudent" />
+        <activity android:name=".warden.wardenHome$updateStudent" />
+        <activity android:name=".student.studentAccount" />
+        <activity android:name=".warden.wardenHome$StudentReport" />
+        <activity android:name=".warden.wardenHome$StudentRegister" />
+        <activity android:name=".warden.wardenAccount" />
+        <activity android:name=".warden.wardenSList" />
+        <activity android:name=".warden.wardenReport" />
+        <activity android:name=".warden.attendance" />
+        <activity android:name=".student.studentHome" />
+        <activity android:name=".warden.wardenHome" />
+        <activity android:name=".general.AppState$UploadImage" />
+        <activity android:name=".general.AppState$DisplayActivity" />
+        <activity android:name=".general.AppState$Login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

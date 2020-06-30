@@ -1,4 +1,4 @@
-package com.example.hams;
+package com.example.hams.student;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.hams.R;
+import com.example.hams.general.AppState;
+import com.example.hams.warden.wardenHome;
 
 public class studentHome extends AppCompatActivity {
     private ImageView imgAtt, imgAccount, imgLogout;
@@ -36,7 +40,7 @@ public class studentHome extends AppCompatActivity {
         imgAtt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intent = new Intent(getApplicationContext(), StudentReport.class);
+                intent = new Intent(getApplicationContext(), wardenHome.StudentReport.class);
                 intent.putExtra("iRollNo1", RollNo);
                 startActivity(intent);
             }
@@ -66,7 +70,7 @@ public class studentHome extends AppCompatActivity {
                         finish();
                         AppState.getSingleInstance().setLoggingOut(true);
                         Intent intent = new Intent(studentHome.this,
-                                Login.class);
+                                AppState.Login.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }

@@ -1,4 +1,4 @@
-package com.example.hams;
+package com.example.hams.warden;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.hams.R;
+import com.example.hams.general.AppState;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -50,7 +52,7 @@ public class wardenAccount extends AppCompatActivity {
         btnNewAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(wardenAccount.this, NewWarden.class));
+                startActivity(new Intent(wardenAccount.this, wardenHome.NewWarden.class));
             }
         });
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +81,7 @@ public class wardenAccount extends AppCompatActivity {
                                 public void onSuccess(Void aVoid) {
                                     mProgress.dismiss();
                                     Toast.makeText(wardenAccount.this, "Updated Successfully \n Please Login with New Password", Toast.LENGTH_LONG).show();
-                                    intent = new Intent(getApplicationContext(), Login.class);
+                                    intent = new Intent(getApplicationContext(), AppState.Login.class);
                                     startActivity(intent);
                                 }
                             })

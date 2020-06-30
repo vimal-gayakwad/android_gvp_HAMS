@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="30dp"
     android:fillViewport="true"
-    tools:context=".Login">
+    tools:context=".general.AppState$Login">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
