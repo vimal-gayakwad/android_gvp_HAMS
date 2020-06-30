@@ -28,8 +28,8 @@
         <activity android:name=".wardenHome" />
         <activity android:name=".UploadImage" />
         <activity android:name=".DisplayActivity" />
-        <activity android:name=".Login">
-
+        <activity android:name=".Login" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
