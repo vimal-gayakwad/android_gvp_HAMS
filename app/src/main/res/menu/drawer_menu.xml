@@ -3,32 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="all">
         <item
-            android:id="@+id/nav_message"
-            android:icon="@drawable/ic_mail"
-            android:title="Message" />
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/ic_attendance"
+            android:title="@string/warden_fragment_attendance" />
         <item
-            android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_mail"
-            android:title="Chat" />
+            android:id="@+id/nav_student_list"
+            android:icon="@drawable/ic_student_list"
+            android:title="@string/warden_fragment_student_list" />
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_mail"
-            android:title="Profile" />
+            android:id="@+id/nav_student_report"
+            android:icon="@drawable/ic_report"
+            android:title="@string/warden_fragment_student_report" />
+        <item
+            android:id="@+id/nav_add_student"
+            android:icon="@drawable/ic_add_student"
+            android:title="Add New Student" />
+        <item
+            android:id="@+id/nav_update_details"
+            android:icon="@drawable/ic_update_details"
+            android:title="Update Student Details" />
+        <item
+            android:id="@+id/nav_delete_details"
+            android:icon="@drawable/ic_delete_stu"
+            android:title="Delete Student Details" />
+        <item
+            android:id="@+id/nav_add_warden"
+            android:icon="@drawable/ic_add_warden"
+            android:title="Add New Warden" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Manage Profile">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_mail"
-                android:title="Share" />
+                android:id="@+id/nav_profile"
+                android:icon="@drawable/ic_account"
+                android:title="@string/warden_fragment_profile" />
+
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_mail"
-                android:title="Send" />
+                android:id="@+id/nav_reset_semester"
+                android:icon="@drawable/ic_reset"
+                android:title="Reset Semester" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout" />
         </menu>
     </item>
-
 </menu>

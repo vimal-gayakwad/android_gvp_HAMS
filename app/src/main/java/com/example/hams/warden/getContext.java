@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class wardenReport extends Activity {
+public class getContext extends Activity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<Long> rollno = new ArrayList<>();
     private Map<String, String> MonthList = new HashMap();
@@ -49,7 +49,7 @@ public class wardenReport extends Activity {
         webView =  findViewById(R.id.webviewAbs);
         printPDF = findViewById(R.id.btnPrint);
         printPDF.setVisibility(View.VISIBLE);
-        mProgress = new ProgressDialog(wardenReport.this);
+        mProgress = new ProgressDialog(getContext.this);
         mProgress.setTitle(getString(R.string.mprogress_title));
         mProgress.setMessage(getString(R.string.mprogress_msg));
         mProgress.setCancelable(false);
@@ -70,7 +70,7 @@ public class wardenReport extends Activity {
                                 rollno.add(Long.valueOf(document.getId()));
                             }
                         } else {
-                            Toast.makeText(wardenReport.this, "Error " + task.getException(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext.this, "Error " + task.getException(), Toast.LENGTH_SHORT).show();
                         }
                         Collections.sort(rollno);
                         db.collection("attendance")
@@ -142,7 +142,7 @@ public class wardenReport extends Activity {
         printPDF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PrintManager printManager = (PrintManager) wardenReport.this.getSystemService(Context.PRINT_SERVICE);
+                PrintManager printManager = (PrintManager) getContext.this.getSystemService(Context.PRINT_SERVICE);
                 String jobName = getString(R.string.app_name) + "Document";
                 PrintDocumentAdapter printDocumentAdapter = webView.createPrintDocumentAdapter(jobName);
                 if (printManager != null) {

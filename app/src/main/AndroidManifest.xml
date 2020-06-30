@@ -22,17 +22,18 @@
         <activity android:name=".warden.wardenHome$StudentRegister" />
         <activity android:name=".warden.wardenAccount" />
         <activity android:name=".warden.wardenSList" />
-        <activity android:name=".warden.wardenReport" />
+        <activity android:name=".warden.getContext" />
         <activity android:name=".warden.attendance" />
         <activity android:name=".student.studentHome" />
         <activity android:name=".warden.wardenHome" />
         <activity android:name=".general.AppState$UploadImage" />
         <activity android:name=".general.AppState$DisplayActivity" />
         <activity android:name=".general.AppState$Login" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

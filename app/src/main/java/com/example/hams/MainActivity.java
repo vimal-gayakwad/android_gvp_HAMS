@@ -1,24 +1,31 @@
 package com.example.hams;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.hams.fragments.MessageChat;
-import com.example.hams.fragments.MessageFragment;
-import com.example.hams.fragments.MessageSettings;
-import com.example.hams.warden.attendance;
+import com.example.hams.fragments.FragmentAccount;
+import com.example.hams.fragments.FragmentAddWarden;
+import com.example.hams.fragments.FragmentAttendance;
+import com.example.hams.fragments.FragmentDeleteStu;
+import com.example.hams.fragments.FragmentList;
+import com.example.hams.fragments.FragmentLogout;
+import com.example.hams.fragments.FragmentReport;
+import com.example.hams.fragments.FragmentUpdate;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,28 +41,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new attendance.MessageFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_message);
+                    new FragmentAttendance()).commit();
+            navigationView.setCheckedItem(R.id.nav_attendance);
         }
-
-
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.nav_message:
+            case R.id.nav_attendance:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessageFragment()).commit();
+                        new FragmentAttendance()).commit();
                 break;
-            case R.id.nav_chat:
+            case R.id.nav_student_report:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessageChat()).commit();
+                        new FragmentReport()).commit();
+                break;
+            case R.id.nav_student_list:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentList()).commit();
+                break;
+            case R.id.nav_update_details:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentUpdate()).commit();
+                break;
+            case R.id.nav_delete_details:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentDeleteStu()).commit();
+                break;
+            case R.id.nav_add_warden:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentAddWarden()).commit();
+                break;
+            case R.id.nav_logout:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentLogout()).commit();
                 break;
             case R.id.nav_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new MessageSettings()).commit();
+                        new FragmentAccount()).commit();
                 break;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

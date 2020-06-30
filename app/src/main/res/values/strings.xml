@@ -141,8 +141,12 @@
         <item>SEM 5</item>
         <item>SEM 6</item>
     </string-array>
-
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
-
+    <string name="welcome_to_hams">Welcome to HAMS</string>
+    <string name="info_hamsgvp_com">info@hamsgvp.com</string>
+    <string name="warden_fragment_attendance">Attendance</string>
+    <string name="warden_fragment_student_list">Student List</string>
+    <string name="warden_fragment_student_report">Student Report</string>
+    <string name="warden_fragment_profile">Profile</string>
 </resources>
